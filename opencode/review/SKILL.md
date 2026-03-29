@@ -77,6 +77,28 @@ User: yes
 → Added review to PR #2
 ```
 
+## Auto-Analysis Logic
+
+### Step 1: Check for Review Requests
+- Get PR review threads: `gh pr view {pr_number} --json reviews`
+- Check if there are pending review requests or questions
+
+### Step 2: Determine Review Type
+
+| Condition | Action |
+|-----------|--------|
+| PR owner is self | `--comment` only (can't approve own PR) |
+| Has pending change requests | `--request-changes` |
+| Has questions in comments | `--comment` |
+| No issues found + not own PR | `--approve` |
+
+### Step 3: Generate Review Body
+
+Based on analysis:
+- **Approve**: "LGTM! 👍 Great work."
+- **Comment**: "Looks good, but consider X"
+- **Request Changes**: "Please address X before merging"
+
 ## Auto-Analysis Rules
 
 | Change Type | Recommendation |
@@ -84,6 +106,6 @@ User: yes
 | docs only | LGTM |
 | feat + test | LGTM |
 | fix + test | LGTM |
-| feat without test | Consider adding tests |
-| breaking changes | Review carefully |
-| 100+ files | Split into smaller PRs |
+| feat without test | Comment: "Consider adding tests" |
+| breaking changes | Request changes: "Review breaking changes" |
+| 100+ files | Comment: "Consider splitting into smaller PRs" |

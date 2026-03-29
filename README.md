@@ -1,6 +1,5 @@
 <div align="center">
-  <img src="assets/logo.svg" width="200" height="200" alt="Skill Hive Logo"/>
-  <h1>Skill Hive</h1>
+  <img src="assets/logo.png" width="400" height="400" alt=""/>
   <p>OpenCode skills for git workflow automation</p>
 </div>
 

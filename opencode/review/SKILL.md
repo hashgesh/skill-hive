@@ -109,3 +109,7 @@ Based on analysis:
 | feat without test | Comment: "Consider adding tests" |
 | breaking changes | Request changes: "Review breaking changes" |
 | 100+ files | Comment: "Consider splitting into smaller PRs" |
+
+---
+
+### 🔧 Test: Request Changes Scenario

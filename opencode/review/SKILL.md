@@ -111,3 +111,28 @@ Based on analysis:
 | feat without test | Comment: "Consider adding tests" |
 | breaking changes | Request changes: "Review breaking changes" |
 | 100+ files | Comment: "Consider splitting into smaller PRs" |
+
+## Language-Specific Checks
+
+When C++ files are detected, run cpp-linter skill analysis:
+
+1. **Detect C++ files**: `.cpp`, `.hpp`, `.h`, `.cc`
+2. **Run lint checks**:
+   - `clang-format --style=google --check {file}`
+   - `clang-tidy {file}`
+   - `cppcheck --enable=all {file}`
+3. **Include findings in review**:
+   - Formatting issues
+   - Style violations
+   - Security warnings
+
+### C++ Review Example
+
+```
+### C++ Analysis (cpp-linter)
+- ⚠️ src/main.cpp:15 - Indentation incorrect
+- ⚠️ src/utils.cpp:42 - use 'const' for read-only variables
+- ✅ No memory leaks detected
+
+Recommendation: Fix formatting issues before merge.
+```

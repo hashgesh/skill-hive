@@ -12,3 +12,4 @@
 | [release](opencode/release/) | Create release with changelog and tag |
 | [pull-request](opencode/pull-request/) | Auto-generate PR summary |
 | [review](opencode/review/) | Auto-review PRs with analysis |
+| [cpp-linter](opencode/cpp-linter/) | C++ code style checker |

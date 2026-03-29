@@ -92,6 +92,8 @@ User: yes
 | Has questions in comments | `--comment` |
 | No issues found + not own PR | `--approve` |
 
+> **Note:** GitHub API - `--approve` and `--request-changes` only work on others' PRs.
+
 ### Step 3: Generate Review Body
 
 Based on analysis:

@@ -87,10 +87,12 @@ User: yes
 
 | Condition | Action |
 |-----------|--------|
-| PR owner is self | `--comment` only (can't approve own PR) |
+| PR owner is self | `--comment` only (GitHub restriction) |
 | Has pending change requests | `--request-changes` |
 | Has questions in comments | `--comment` |
 | No issues found + not own PR | `--approve` |
+
+> **Note:** GitHub API - `--approve` and `--request-changes` only work on others' PRs.
 
 ### Step 3: Generate Review Body
 

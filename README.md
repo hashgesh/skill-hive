@@ -15,6 +15,8 @@ The same `skills/<name>/SKILL.md` files are used by both tools. In Claude Code t
 | [release](skills/release/) | `git-workflow` | Create release with changelog and tag | `git-cliff`, `gh` (optional) |
 | [review](skills/review/) | `git-workflow` | Auto-review PRs with analysis | `gh` |
 | [cpp-linter](skills/cpp-linter/) | `code-quality` | C++ code style checker | `clang-format`, `clang-tidy`, `cppcheck` |
+| [js-linter](skills/js-linter/) | `code-quality` | JS/TS lint, format and type check | `eslint`, `prettier`, `tsc` |
+| [python-linter](skills/python-linter/) | `code-quality` | Python lint, format and type check | `ruff`, `mypy` (optional) |
 | [refactor](skills/refactor/) | `code-quality` | Code analysis and refactoring patterns | `ast-grep` (optional) |
 
 The CLIs are not bundled; install the ones you need (each skill lists install commands).

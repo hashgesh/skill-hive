@@ -1,37 +1,47 @@
 ---
 name: conventional-commit
-description: Write and validate conventional commit messages following the conventional-commits specification with gitmoji. Use gitmoji-cli for commits.
+description: Write, commit and validate conventional commit messages with a gitmoji prefix and scope, e.g. "✨ feat(auth): add login endpoint". Maps gitmoji to types (feat, fix, docs, refactor, ...), marks breaking changes, checks subject rules. Use for commit, commit message, git commit, conventional commits, gitmoji, lint commit.
 ---
 
 # Conventional Commit Skill with Gitmoji
 
-Guidelines for writing conventional commits following the [conventional-commits](https://www.conventionalcommits.org/) specification with gitmoji. Use the **gitmoji-cli** tool for commits.
+Guidelines for writing conventional commits following the [conventional-commits](https://www.conventionalcommits.org/) specification with a [gitmoji](https://gitmoji.dev/) prefix.
 
-## Install
+## When Invoked
+
+1. **Inspect changes**: `git status --short` and `git diff --staged` (if nothing is staged, ask what to stage).
+2. **Pick type, gitmoji and scope** from the mapping below; take the scope from the touched module/directory.
+3. **Draft the message** and check it against the Validation list.
+4. **Show it and ask for confirmation**.
+5. **Commit non-interactively**:
+   - Subject only: `git commit -m "✨ feat(auth): add login endpoint"`
+   - With body/footer: write the message to a temp file and run `git commit -F {file}`
+
+Don't run `gitmoji -c` from an agent: it is an interactive prompt, and its default output (`:sparkles: (scope): title`) has no conventional type.
+
+## Optional: gitmoji-cli
+
+Useful for humans browsing emojis; not needed to commit.
 
 ```bash
 npm i -g gitmoji-cli
-```
-
-## Commands
-
-```bash
-gitmoji -c    # Interactive commit (recommended)
-gitmoji -l    # List all available gitmojis
-gitmoji -s    # Search gitmojis
+gitmoji -l          # List all available gitmojis
+gitmoji -s <query>  # Search gitmojis
 ```
 
 ## Format
 
 ```
-:<gitmoji>: <type>(<scope>): <description>
+<gitmoji> <type>(<scope>)[!]: <description>
 
 [optional body]
 
 [optional footer(s)]
 ```
 
-**Always include a scope when applicable!** Examples: `auth`, `api`, `shared-ptr`, `unique-ptr`
+Use the unicode emoji (`✨`), not the `:sparkles:` shortcode, so the message renders everywhere and matches the changelog skill.
+
+**Always include a scope when applicable!** Examples: `auth`, `api`, `parser`, `ci`
 
 ## Gitmoji Mapping
 
@@ -52,7 +62,7 @@ gitmoji -s    # Search gitmojis
 | 🎨 | :art: | style | Code structure/format |
 | 🔖 | :bookmark: | release | Release/version tags |
 | ✏️ | :pencil2: | style | Fix typos |
-| 💥 | :boom: | feat | Breaking changes |
+| 💥 | :boom: | feat! | Breaking changes (add `!` and/or a `BREAKING CHANGE:` footer) |
 | 🧪 | :test_tube: | test | Failing test |
 | 👔 | :necktie: | feat | Business logic |
 | 🌐 | :globe_with_meridians: | feat | Internationalization |
@@ -63,7 +73,7 @@ gitmoji -s    # Search gitmojis
 
 ### Subject Line
 - Use imperative mood: "add feature" not "added feature"
-- Keep subject line under 50 characters
+- Keep the whole subject line (emoji, type, scope included) under 72 characters; aim for a description of about 50
 - Do not end with a period
 - Lowercase the first letter
 - Always prefix with appropriate gitmoji
@@ -80,7 +90,7 @@ gitmoji -s    # Search gitmojis
 
 ### Footer (Optional)
 - Reference issues: `Closes #123`, `Fixes #456`
-- Breaking changes: `BREAKING CHANGE: description`
+- Breaking changes: `BREAKING CHANGE: description`, and add `!` after the type/scope: `💥 feat(api)!: remove v1 endpoints`
 
 ## Examples
 
@@ -93,31 +103,31 @@ Closes #123
 ```
 
 ```
-🐛 fix(shared-ptr): resolve memory leak in release
+🐛 fix(parser): handle empty input without crashing
 
-Fixed release() not deleting object when ref_count reaches 0.
+Return an empty AST instead of dereferencing a null token.
 
 Fixes #456
 ```
 
 ```
-📝 docs(agents): update agent guidelines
-
-Added build commands and code style guidelines.
-
-Closes #789
+📝 docs(readme): add installation steps
 ```
 
 ```
-✅ test(shared-ptr): add tests for copy semantics
-
-Added test cases for copy constructor and assignment operator.
+✅ test(parser): add tests for nested expressions
 ```
 
 ```
-♻️ refactor(unique-ptr): simplify release method
+♻️ refactor(cache): extract eviction policy
 
-Removed redundant null check before deletion.
+Moved LRU logic into its own class so it can be swapped.
+```
+
+```
+💥 feat(api)!: remove v1 endpoints
+
+BREAKING CHANGE: /v1/* routes are gone; use /v2/*.
 ```
 
 ## Validation
@@ -126,7 +136,7 @@ When reviewing commit messages, verify:
 1. Gitmoji is present and matches the type
 2. Type is one of the defined types
 3. **Scope is included when applicable** (e.g., `fix(shared-ptr):`, `feat(auth):`)
-4. Subject is under 50 chars
+4. Subject line is under 72 chars
 5. Imperative mood is used
 6. No trailing period in subject
 7. Scope is in lowercase with hyphens

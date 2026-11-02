@@ -9,6 +9,7 @@ skill-hive is a set of agent skills (`skills/<name>/SKILL.md`) that work in both
 |----------------------|--------|
 | `git-workflow` | `branch`, `changelog`, `conventional-commit`, `pull-request`, `release`, `review` |
 | `code-quality` | `cpp-linter`, `js-linter`, `python-linter`, `refactor`, `tech-debt` |
+| `code-insight` | `code-history`, `codebase-tour` |
 
 Repository: `https://github.com/halilibrahimonus/skill-hive`
 
@@ -27,7 +28,7 @@ git --version
 Tell the user which of Claude Code and OpenCode are installed, then ask:
 
 1. **Install for which tool(s)?** Claude Code, OpenCode, or both (offer only the installed ones).
-2. **Which plugins?** `git-workflow`, `code-quality`, or both (default: both). For OpenCode all skills come together; this choice only matters for Claude Code.
+2. **Which plugins?** Any of `git-workflow`, `code-quality`, `code-insight` (default: all three). For OpenCode all skills come together; this choice only matters for Claude Code.
 
 If neither tool is installed, stop and tell the user to install one first.
 
@@ -46,6 +47,7 @@ Skip if the user didn't choose Claude Code.
    ```bash
    claude plugin install git-workflow@skill-hive
    claude plugin install code-quality@skill-hive
+   claude plugin install code-insight@skill-hive
    ```
 
    Default scope is `user` (all projects). If the user wants it only for the current project, add `--scope project`; this enables the plugin in the project's `.claude/settings.json`.
@@ -55,14 +57,15 @@ Skip if the user didn't choose Claude Code.
    ```bash
    claude plugin details git-workflow
    claude plugin details code-quality
+   claude plugin details code-insight
    ```
 
-   Expected: `Skills (6)  branch, changelog, conventional-commit, pull-request, release, review` and `Skills (5)  cpp-linter, js-linter, python-linter, refactor, tech-debt`.
+   Expected: `Skills (6)  branch, changelog, conventional-commit, pull-request, release, review` `Skills (5)  cpp-linter, js-linter, python-linter, refactor, tech-debt` and `Skills (2)  code-history, codebase-tour`.
 
-4. Tell the user to restart Claude Code (or run `/reload-plugins` in a session). Skills are namespaced: `/git-workflow:changelog`, `/code-quality:python-linter`, and Claude also picks them automatically from their descriptions.
+4. Tell the user to restart Claude Code (or run `/reload-plugins` in a session). Skills are namespaced: `/git-workflow:changelog`, `/code-quality:python-linter`, `/code-insight:codebase-tour`, and Claude also picks them automatically from their descriptions.
 
 > If you are running *inside* Claude Code and `claude` commands are unavailable, give the user these to type instead:
-> `/plugin marketplace add halilibrahimonus/skill-hive`, then `/plugin install git-workflow@skill-hive` and `/plugin install code-quality@skill-hive`.
+> `/plugin marketplace add halilibrahimonus/skill-hive`, then `/plugin install git-workflow@skill-hive`, `/plugin install code-quality@skill-hive` and `/plugin install code-insight@skill-hive`.
 
 ## Step 3 — OpenCode
 
@@ -101,7 +104,7 @@ OpenCode loads skills from directories listed in its config, so it needs a local
    opencode debug skill
    ```
 
-   The output is JSON; it must contain entries whose `location` is under `<clone>/skills/` for all 11 skills: `branch`, `changelog`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`, `tech-debt`. If they are missing, re-check the path in the config.
+   The output is JSON; it must contain entries whose `location` is under `<clone>/skills/` for all 13 skills: `branch`, `changelog`, `code-history`, `codebase-tour`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`, `tech-debt`. If they are missing, re-check the path in the config.
 
 5. Tell the user to restart OpenCode; config is loaded only at startup.
 
@@ -120,6 +123,8 @@ The skills call external CLIs and check for them at run time, so nothing breaks 
 | js-linter | `eslint`, `prettier`, `tsc` | per project: `npm i -D eslint @eslint/js globals prettier typescript` |
 | refactor | `ast-grep` | `cargo install ast-grep --locked` · `npm i -g @ast-grep/cli` · `brew install ast-grep` |
 | tech-debt | `rg` (required), `lizard`, `jscpd` | `apt install ripgrep` · `brew install ripgrep` · `pip install lizard` · `npm i -g jscpd` |
+| codebase-tour | `rg`, `scc` or `tokei` (optional) | `brew install scc` · `go install github.com/boyter/scc/v3@latest` · `cargo install tokei` |
+| code-history | `git`; `gh` for PRs and issues | see the `gh` row |
 
 `conventional-commit` only needs `git`; `branch` needs only `git`, and uses `gh` to read and link issues when available.
 
@@ -136,10 +141,10 @@ Summarize for the user:
 
 ## Updating
 
-- **Claude Code:** `claude plugin marketplace update skill-hive`, then `claude plugin update git-workflow@skill-hive` and `claude plugin update code-quality@skill-hive`; restart.
+- **Claude Code:** `claude plugin marketplace update skill-hive`, then `claude plugin update git-workflow@skill-hive`, `claude plugin update code-quality@skill-hive` and `claude plugin update code-insight@skill-hive`; restart.
 - **OpenCode:** `git -C ~/.local/share/skill-hive pull --ff-only`; restart.
 
 ## Uninstalling
 
-- **Claude Code:** `claude plugin uninstall git-workflow@skill-hive`, `claude plugin uninstall code-quality@skill-hive`, then `claude plugin marketplace remove skill-hive`.
+- **Claude Code:** `claude plugin uninstall git-workflow@skill-hive`, `claude plugin uninstall code-quality@skill-hive`, `claude plugin uninstall code-insight@skill-hive`, then `claude plugin marketplace remove skill-hive`.
 - **OpenCode:** remove the skill-hive path from `skills` in the config, then delete the clone (ask first).

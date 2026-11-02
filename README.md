@@ -1,6 +1,6 @@
 <div align="center">
   <img src="assets/logo.png" width="400" height="400" alt="skill-hive logo"/>
-  <p>Skills for git workflow automation and code quality, for <b>Claude Code</b> and <b>OpenCode</b></p>
+  <p>Skills for git workflow, code quality and code understanding, for <b>Claude Code</b> and <b>OpenCode</b></p>
 </div>
 
 ## Install with an AI agent
@@ -16,7 +16,7 @@ https://raw.githubusercontent.com/halilibrahimonus/skill-hive/main/INSTALL.md
 
 ## Skills
 
-The same `skills/<name>/SKILL.md` files are used by both tools. In Claude Code they are grouped into two plugins.
+The same `skills/<name>/SKILL.md` files are used by both tools. In Claude Code they are grouped into three plugins.
 
 | Skill | Plugin | Description | Requires |
 |-------|--------|-------------|----------|
@@ -31,6 +31,8 @@ The same `skills/<name>/SKILL.md` files are used by both tools. In Claude Code t
 | [python-linter](skills/python-linter/) | `code-quality` | Python lint, format and type check | `ruff`, `mypy` (optional) |
 | [refactor](skills/refactor/) | `code-quality` | Code analysis and refactoring patterns | `ast-grep` (optional) |
 | [tech-debt](skills/tech-debt/) | `code-quality` | Technical debt register: markers, hotspots, duplication, outdated deps | `git`, `rg`, `lizard`/`jscpd` (optional) |
+| [code-history](skills/code-history/) | `code-insight` | Explain why code looks the way it does, from git history, PRs and issues | `git`, `gh` (optional) |
+| [codebase-tour](skills/codebase-tour/) | `code-insight` | Guided tour of a repo: stack, commands, map, entry points, reading list | `git`, `rg`, `scc`/`tokei` (optional) |
 
 The CLIs are not bundled; install the ones you need (each skill lists install commands).
 
@@ -42,6 +44,7 @@ Add the marketplace and install one or both plugins:
 /plugin marketplace add halilibrahimonus/skill-hive
 /plugin install git-workflow@skill-hive
 /plugin install code-quality@skill-hive
+/plugin install code-insight@skill-hive
 ```
 
 On Claude Code 2.1.275 or later you can do it in one step:
@@ -50,7 +53,7 @@ On Claude Code 2.1.275 or later you can do it in one step:
 /plugin install git-workflow --marketplace halilibrahimonus/skill-hive
 ```
 
-Skills are namespaced by plugin, e.g. `/git-workflow:changelog` or `/code-quality:cpp-linter`, and Claude also picks them automatically from their descriptions. Update with `/plugin marketplace update skill-hive`.
+Skills are namespaced by plugin, e.g. `/git-workflow:changelog`, `/code-quality:cpp-linter` or `/code-insight:codebase-tour`, and Claude also picks them automatically from their descriptions. Update with `/plugin marketplace update skill-hive`.
 
 ## OpenCode (manual)
 

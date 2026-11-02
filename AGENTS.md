@@ -1,19 +1,27 @@
 # AGENTS.md
 
 ## What this repo is
-A collection of OpenCode **skill** definitions (Markdown). There is no application, build, test, lint, or codegen step, and no root manifest or CI. Don't look for `package.json`, a test suite, or a compile command — the files are the product.
+A collection of agent **skill** definitions (Markdown) shared by **Claude Code** (as a plugin marketplace) and **OpenCode**. There is no application, build, test, or codegen step and no root manifest. Don't look for `package.json` or a test suite — the files are the product.
 
 ## Layout
-- `opencode/<skill-name>/SKILL.md` — one directory per skill. OpenCode derives the skill ID from this path, not from the frontmatter `name`. Skills: `changelog`, `conventional-commit`, `release`, `cpp-linter`, `pull-request`, `refactor`, `review`.
-- `README.md` — skill table. Update it whenever a skill is added or renamed.
-- `assets/` — repo logo. `LICENSE` — MIT.
+- `skills/<skill-name>/SKILL.md` — one directory per skill, the single source of truth for both tools. Skills: `changelog`, `conventional-commit`, `release`, `cpp-linter`, `pull-request`, `refactor`, `review`.
+- `.claude-plugin/marketplace.json` — Claude Code marketplace `skill-hive`. Each plugin entry uses `"source": "./"` and lists its skill directories under `skills`:
+  - `git-workflow`: changelog, conventional-commit, pull-request, release, review
+  - `code-quality`: cpp-linter, refactor
+- `opencode` — symlink to `skills/`, kept so existing OpenCode configs pointing at `opencode/` keep working. Don't put files in it.
+- `README.md` — skill table and install instructions for both tools. `assets/` — logo. `LICENSE` — MIT.
 
 ## Adding / editing a skill
-- Every `SKILL.md` starts with YAML frontmatter `name` + `description`. `description` is what OpenCode uses to advertise the skill, so keep it keyword- and trigger-rich.
-- This repo is registered with OpenCode through the `skills` array in the global `~/.config/opencode/opencode.jsonc`, pointing at this repo's `opencode/` directory. OpenCode loads `<root>/<name>/SKILL.md` directly — no copy or symlink step. The live skill set therefore follows the checked-out branch.
-- Keep the directory name a lowercase kebab-case ID; it must be unique.
+- Every `SKILL.md` starts with YAML frontmatter with only `name` + `description` (both tools read these; don't add tool-specific fields). `name` must equal the directory name: lowercase kebab-case, unique. `description` (max 1024 chars) is what both tools use to decide when to load the skill, so keep it keyword- and trigger-rich.
+- Keep skill bodies tool-neutral: no OpenCode- or Claude-specific tool names. Refer to other skills by bare name ("the changelog skill"); in Claude Code they appear namespaced (`git-workflow:changelog`).
+- When adding a skill: add it to a plugin's `skills` list in `.claude-plugin/marketplace.json` (or a new plugin entry) **and** to the README table.
+- Validate the marketplace after every change: `claude plugin validate --strict .`
+- Plugin entries have no `version`, so Claude Code users get every pushed commit on `/plugin marketplace update`. Add a `version` only if releases should be pinned.
+- OpenCode is registered through the `skills` array in `~/.config/opencode/opencode.jsonc` pointing at this repo's `skills/` directory; it loads `<root>/<name>/SKILL.md` directly, so the live skill set follows the checked-out branch.
 
 ## Git workflow
 - `develop` is the integration branch; add skills there, then merge to `main`.
 - Commits use conventional commits **with a gitmoji prefix and a scope when applicable**: `✨ feat(refactor): add refactor skill`, `📝 docs(cpp-linter): add ...`. Follow the existing history.
-- Skills wrap external CLIs the user must install: `gitmoji-cli`, `git-cliff`, `gh`, `ast-grep`, `clang-format`/`clang-tidy`/`cppcheck`. Don't assume they're present.
+- Skills wrap external CLIs the user must install: `git-cliff`, `gh`/`glab`, `ast-grep`, `clang-format`/`clang-tidy`/`cppcheck` (`gitmoji-cli` is optional). Don't assume they're present; each skill should check for its tool and show install commands.
+- Verify every command and flag a skill tells the agent to run (e.g. install the tool in a scratch dir and run it). Prefer non-interactive commands and `--body-file`/`-F` over inline quoted bodies.
+- The changelog skill's `cliff.toml` strips the leading gitmoji before parsing; keep it in sync with the conventional-commit mapping.

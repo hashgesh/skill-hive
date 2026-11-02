@@ -20,6 +20,7 @@ The same `skills/<name>/SKILL.md` files are used by both tools. In Claude Code t
 
 | Skill | Plugin | Description | Requires |
 |-------|--------|-------------|----------|
+| [branch](skills/branch/) | `git-workflow` | Create a well-named branch from the right base | `git`, `gh` (optional) |
 | [changelog](skills/changelog/) | `git-workflow` | Generate changelog with git-cliff | `git-cliff` |
 | [conventional-commit](skills/conventional-commit/) | `git-workflow` | Conventional commits with gitmoji | `git` |
 | [pull-request](skills/pull-request/) | `git-workflow` | Auto-generate PR summary | `gh` or `glab` (optional) |

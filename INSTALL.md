@@ -7,7 +7,7 @@ skill-hive is a set of agent skills (`skills/<name>/SKILL.md`) that work in both
 
 | Plugin (Claude Code) | Skills |
 |----------------------|--------|
-| `git-workflow` | `changelog`, `conventional-commit`, `pull-request`, `release`, `review` |
+| `git-workflow` | `branch`, `changelog`, `conventional-commit`, `pull-request`, `release`, `review` |
 | `code-quality` | `cpp-linter`, `js-linter`, `python-linter`, `refactor` |
 
 Repository: `https://github.com/halilibrahimonus/skill-hive`
@@ -57,7 +57,7 @@ Skip if the user didn't choose Claude Code.
    claude plugin details code-quality
    ```
 
-   Expected: `Skills (5)  changelog, conventional-commit, pull-request, release, review` and `Skills (4)  cpp-linter, js-linter, python-linter, refactor`.
+   Expected: `Skills (6)  branch, changelog, conventional-commit, pull-request, release, review` and `Skills (4)  cpp-linter, js-linter, python-linter, refactor`.
 
 4. Tell the user to restart Claude Code (or run `/reload-plugins` in a session). Skills are namespaced: `/git-workflow:changelog`, `/code-quality:python-linter`, and Claude also picks them automatically from their descriptions.
 
@@ -101,7 +101,7 @@ OpenCode loads skills from directories listed in its config, so it needs a local
    opencode debug skill
    ```
 
-   The output is JSON; it must contain entries whose `location` is under `<clone>/skills/` for all 9 skills: `changelog`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`. If they are missing, re-check the path in the config.
+   The output is JSON; it must contain entries whose `location` is under `<clone>/skills/` for all 10 skills: `branch`, `changelog`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`. If they are missing, re-check the path in the config.
 
 5. Tell the user to restart OpenCode; config is loaded only at startup.
 
@@ -114,13 +114,13 @@ The skills call external CLIs and check for them at run time, so nothing breaks 
 | Skill | Tools | Install |
 |-------|-------|---------|
 | changelog, release | `git-cliff` | `cargo install git-cliff` · `brew install git-cliff` · `pip install git-cliff` |
-| pull-request, review, release | `gh` (GitHub) or `glab` (GitLab) | `brew install gh` · see https://cli.github.com |
+| pull-request, review, release, branch | `gh` (GitHub) or `glab` (GitLab) | `brew install gh` · see https://cli.github.com |
 | cpp-linter | `clang-format`, `clang-tidy`, `cppcheck` | `sudo apt install clang-format clang-tidy cppcheck` · `brew install clang-format llvm cppcheck` |
 | python-linter | `ruff`, `mypy` | `pip install ruff mypy` · `uv tool install ruff` · `brew install ruff mypy` |
 | js-linter | `eslint`, `prettier`, `tsc` | per project: `npm i -D eslint @eslint/js globals prettier typescript` |
 | refactor | `ast-grep` | `cargo install ast-grep --locked` · `npm i -g @ast-grep/cli` · `brew install ast-grep` |
 
-`conventional-commit` only needs `git`.
+`conventional-commit` only needs `git`; `branch` needs only `git`, and uses `gh` to read and link issues when available.
 
 ## Step 5 — Report
 

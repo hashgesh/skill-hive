@@ -8,7 +8,7 @@ skill-hive is a set of agent skills (`skills/<name>/SKILL.md`) that work in both
 | Plugin (Claude Code) | Skills |
 |----------------------|--------|
 | `git-workflow` | `branch`, `changelog`, `conventional-commit`, `pull-request`, `release`, `review` |
-| `code-quality` | `cpp-linter`, `js-linter`, `python-linter`, `refactor` |
+| `code-quality` | `cpp-linter`, `js-linter`, `python-linter`, `refactor`, `tech-debt` |
 
 Repository: `https://github.com/halilibrahimonus/skill-hive`
 
@@ -57,7 +57,7 @@ Skip if the user didn't choose Claude Code.
    claude plugin details code-quality
    ```
 
-   Expected: `Skills (6)  branch, changelog, conventional-commit, pull-request, release, review` and `Skills (4)  cpp-linter, js-linter, python-linter, refactor`.
+   Expected: `Skills (6)  branch, changelog, conventional-commit, pull-request, release, review` and `Skills (5)  cpp-linter, js-linter, python-linter, refactor, tech-debt`.
 
 4. Tell the user to restart Claude Code (or run `/reload-plugins` in a session). Skills are namespaced: `/git-workflow:changelog`, `/code-quality:python-linter`, and Claude also picks them automatically from their descriptions.
 
@@ -101,7 +101,7 @@ OpenCode loads skills from directories listed in its config, so it needs a local
    opencode debug skill
    ```
 
-   The output is JSON; it must contain entries whose `location` is under `<clone>/skills/` for all 10 skills: `branch`, `changelog`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`. If they are missing, re-check the path in the config.
+   The output is JSON; it must contain entries whose `location` is under `<clone>/skills/` for all 11 skills: `branch`, `changelog`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`, `tech-debt`. If they are missing, re-check the path in the config.
 
 5. Tell the user to restart OpenCode; config is loaded only at startup.
 
@@ -119,6 +119,7 @@ The skills call external CLIs and check for them at run time, so nothing breaks 
 | python-linter | `ruff`, `mypy` | `pip install ruff mypy` · `uv tool install ruff` · `brew install ruff mypy` |
 | js-linter | `eslint`, `prettier`, `tsc` | per project: `npm i -D eslint @eslint/js globals prettier typescript` |
 | refactor | `ast-grep` | `cargo install ast-grep --locked` · `npm i -g @ast-grep/cli` · `brew install ast-grep` |
+| tech-debt | `rg` (required), `lizard`, `jscpd` | `apt install ripgrep` · `brew install ripgrep` · `pip install lizard` · `npm i -g jscpd` |
 
 `conventional-commit` only needs `git`; `branch` needs only `git`, and uses `gh` to read and link issues when available.
 

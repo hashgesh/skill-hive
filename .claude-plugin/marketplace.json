@@ -38,7 +38,7 @@
     {
       "name": "code-quality",
       "source": "./",
-      "description": "Linting for C++ (clang-format, clang-tidy, cppcheck), Python (ruff, mypy) and JS/TS (ESLint, Prettier, tsc), and refactoring with ast-grep",
+      "description": "Linting for C++ (clang-format, clang-tidy, cppcheck), Python (ruff, mypy) and JS/TS (ESLint, Prettier, tsc), refactoring with ast-grep, and technical debt audits",
       "author": {
         "name": "halilibrahimonus"
       },
@@ -58,13 +58,19 @@
         "eslint",
         "prettier",
         "refactor",
-        "ast-grep"
+        "ast-grep",
+        "tech-debt",
+        "code-health",
+        "hotspots",
+        "lizard",
+        "jscpd"
       ],
       "skills": [
         "./skills/cpp-linter",
         "./skills/js-linter",
         "./skills/python-linter",
-        "./skills/refactor"
+        "./skills/refactor",
+        "./skills/tech-debt"
       ]
     }
   ]

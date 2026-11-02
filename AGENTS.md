@@ -4,10 +4,10 @@
 A collection of agent **skill** definitions (Markdown) shared by **Claude Code** (as a plugin marketplace) and **OpenCode**. There is no application, build, or codegen step and no `package.json` — the files are the product. CI only checks the skill files (see below).
 
 ## Layout
-- `skills/<skill-name>/SKILL.md` — one directory per skill, the single source of truth for both tools. Skills: `changelog`, `conventional-commit`, `release`, `cpp-linter`, `pull-request`, `refactor`, `review`.
+- `skills/<skill-name>/SKILL.md` — one directory per skill, the single source of truth for both tools. Skills: `changelog`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`.
 - `.claude-plugin/marketplace.json` — Claude Code marketplace `skill-hive`. Each plugin entry uses `"source": "./"` and lists its skill directories under `skills`:
   - `git-workflow`: changelog, conventional-commit, pull-request, release, review
-  - `code-quality`: cpp-linter, refactor
+  - `code-quality`: cpp-linter, js-linter, python-linter, refactor
 - `opencode` — symlink to `skills/`, kept so existing OpenCode configs pointing at `opencode/` keep working. Don't put files in it.
 - `scripts/check-skills.py` — checks frontmatter (`name` = directory, kebab-case, only `name`/`description`, description ≤1024), that every skill is in exactly one marketplace plugin, and that the README table links it.
 - `scripts/test-changelog.sh` — extracts the `cliff.toml` from `skills/changelog/SKILL.md` and tests it with git-cliff on gitmoji commits and on this repo's history.

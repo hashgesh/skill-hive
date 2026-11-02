@@ -4,10 +4,11 @@
 A collection of agent **skill** definitions (Markdown) shared by **Claude Code** (as a plugin marketplace) and **OpenCode**. There is no application, build, or codegen step and no `package.json` — the files are the product. CI only checks the skill files (see below).
 
 ## Layout
-- `skills/<skill-name>/SKILL.md` — one directory per skill, the single source of truth for both tools. Skills: `branch`, `changelog`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`, `tech-debt`.
+- `skills/<skill-name>/SKILL.md` — one directory per skill, the single source of truth for both tools. Skills: `branch`, `changelog`, `code-history`, `codebase-tour`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`, `tech-debt`.
 - `.claude-plugin/marketplace.json` — Claude Code marketplace `skill-hive`. Each plugin entry uses `"source": "./"` and lists its skill directories under `skills`:
   - `git-workflow`: branch, changelog, conventional-commit, pull-request, release, review
   - `code-quality`: cpp-linter, js-linter, python-linter, refactor, tech-debt
+  - `code-insight`: code-history, codebase-tour
 - `opencode` — symlink to `skills/`, kept so existing OpenCode configs pointing at `opencode/` keep working. Don't put files in it.
 - `scripts/check-skills.py` — checks frontmatter (`name` = directory, kebab-case, only `name`/`description`, description ≤1024), that every skill is in exactly one marketplace plugin, and that the README table links it.
 - `scripts/test-changelog.sh` — extracts the `cliff.toml` from `skills/changelog/SKILL.md` and tests it with git-cliff on gitmoji commits and on this repo's history.
@@ -26,6 +27,6 @@ A collection of agent **skill** definitions (Markdown) shared by **Claude Code**
 ## Git workflow
 - `main` is the only long-lived branch and the one users install from. For every change, create a short-lived branch from `main` (`feat/…`, `fix/…`, `docs/…`; the branch skill does this), open a PR into `main`, and merge it once CI is green. Don't push directly to `main`.
 - Commits use conventional commits **with a gitmoji prefix and a scope when applicable**: `✨ feat(refactor): add refactor skill`, `📝 docs(cpp-linter): add ...`. Follow the existing history.
-- Skills wrap external CLIs the user must install: `git-cliff`, `gh`/`glab`, `ast-grep`, `clang-format`/`clang-tidy`/`cppcheck`, `ruff`/`mypy`, `eslint`/`prettier`, `rg`/`lizard`/`jscpd` (`gitmoji-cli` is optional). Don't assume they're present; each skill should check for its tool and show install commands.
+- Skills wrap external CLIs the user must install: `git-cliff`, `gh`/`glab`, `ast-grep`, `clang-format`/`clang-tidy`/`cppcheck`, `ruff`/`mypy`, `eslint`/`prettier`, `rg`/`lizard`/`jscpd`, `scc`/`tokei` (`gitmoji-cli` is optional). Don't assume they're present; each skill should check for its tool and show install commands.
 - Verify every command and flag a skill tells the agent to run (e.g. install the tool in a scratch dir and run it). Prefer non-interactive commands and `--body-file`/`-F` over inline quoted bodies.
 - The changelog skill's `cliff.toml` strips the leading gitmoji before parsing; keep it in sync with the conventional-commit mapping.

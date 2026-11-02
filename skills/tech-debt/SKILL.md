@@ -15,7 +15,7 @@ Find where the debt is, rank it by what it costs, and keep a register that shows
 4. **Score every finding** with the rules in Prioritizing.
 5. **Write or update `TECH_DEBT.md`** (format below). Show the diff before saving. If the file exists, keep item IDs and statuses, mark items that are gone as `resolved`, and add a row to the trend table.
 6. **Summarize** in chat: totals per category, the change since the last run, and the top 5 items to tackle first.
-7. **Offer next steps**: fix one item now with the refactor skill, or file issues for the top items (see Issues). Ask before doing either.
+7. **Offer next steps**: fix one item now with the refactor skill, find out why an old `HACK`/`FIXME` exists with the code-history skill, or file issues for the top items (see Issues). Ask before doing any of them.
 
 ## Scans
 

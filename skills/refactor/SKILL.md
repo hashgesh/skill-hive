@@ -1,21 +1,32 @@
 ---
 name: refactor
-description: Analyze code for refactoring opportunities, apply refactoring patterns, and automate improvements using AST tools. Based on refactoring.guru catalog.
+description: Find code smells and refactor safely - extract method, guard clauses, polymorphism, parameter objects and the rest of the refactoring.guru catalog - with structural search and rewrite via ast-grep. Use for refactor, clean up, simplify, code smell, duplicate code, long method, technical debt.
 ---
 
 # Refactor Skill
 
 Guidelines for analyzing code, identifying refactoring opportunities, and applying refactoring patterns. Based on the [refactoring.guru](https://refactoring.guru/refactoring/catalog) catalog.
 
+## When Invoked
+
+1. **Ask scope**: which files, module, or smell to focus on? (Default: files changed on the current branch.)
+2. **Check safety net**: find and run the project's tests. If there are none, say so and suggest writing characterization tests first.
+3. **Analyze**: list the smells found (table below) with `file:line`, ordered by impact.
+4. **Propose**: for each smell, the technique to apply and the files affected. Ask which to apply.
+5. **Apply one refactoring at a time**: change, run tests, show the diff, and offer to commit (`♻️ refactor(scope): ...`) before the next one.
+
 ## Install
 
 ```bash
-# ast-grep for automated refactoring
-cargo install ast-grep
-
-# or via npm
-npm install -g ast-grep
+# ast-grep for structural search and rewrite
+cargo install ast-grep --locked
+# or
+npm install -g @ast-grep/cli
+# or
+brew install ast-grep
 ```
+
+> Use the `ast-grep` command. The `sg` alias clashes with the shadow-utils `sg` (switch group) command on most Linux systems.
 
 ## Code Smells (Analysis)
 
@@ -222,24 +233,28 @@ void printDetails(double outstanding) {
 
 ## Automated Refactoring (ast-grep)
 
-Use ast-grep for safe, automated refactoring:
+Use ast-grep for safe, structure-aware refactoring. `-l/--lang` selects the language; `$X` matches one node, `$$$X` matches a list.
 
 ```bash
-# Find all console.log
-sg query -p console.log -l
+# Find all console.log calls
+ast-grep run -p 'console.log($MSG)' -l js src/
 
-# Replace with logger
-sg -r 'logger.info($MSG)' -p 'console.log($MSG)'
+# Preview a rewrite (prints a diff, changes nothing)
+ast-grep run -p 'console.log($MSG)' -r 'logger.info($MSG)' -l js src/
 
-# Find todo comments
-sg -p '// TODO' -l
+# Apply the rewrite: -i to confirm each change, -U to apply all
+ast-grep run -p 'console.log($MSG)' -r 'logger.info($MSG)' -l js -i src/
 
-# Find magic numbers
-sg -p '100' --lang rust
+# Find a specific magic number
+ast-grep run -p '100' -l rust src/
 
-# Find long functions (>20 lines)
-sg query -l -p 'function $NAME($$$) { $$$ }' --json | jq '.[] | select(.node.text | length > 500)'
+# Find long functions (> 20 lines)
+ast-grep run -p 'function $NAME($$$ARGS) { $$$BODY }' -l js --json src/ \
+  | jq -r '.[] | select(.range.end.line - .range.start.line > 20)
+           | "\(.file):\(.range.start.line + 1) \(.metaVariables.single.NAME.text)"'
 ```
+
+For plain text such as TODO comments, a text search is simpler: `rg -n 'TODO|FIXME'`.
 
 ---
 
@@ -312,23 +327,28 @@ function getPaymentType(order) {
 
 ### Introduce Null Object
 ```javascript
-// Before
-function getShippingAddress(user) {
-  if (user === null) return "Unknown";
-  if (user.address === null) return "No address";
-  return user.address;
+// Before: every caller repeats the null checks
+function shippingLabel(user) {
+  if (user === null) return "Guest";
+  return user.name;
+}
+function discount(user) {
+  if (user === null) return 0;
+  return user.discount;
 }
 
-// After
-const NullUser = {
-  address: "Unknown",
-  getShippingAddress() { return this.address; }
-};
-
-function getShippingAddress(user) {
-  const u = user || NullUser;
-  return u.address || "No address";
+// After: one object carries the "missing user" behavior
+class NullUser {
+  get name() { return "Guest"; }
+  get discount() { return 0; }
 }
+
+function findUser(id) {
+  return users.get(id) ?? new NullUser();
+}
+
+const shippingLabel = (user) => user.name;
+const discount = (user) => user.discount;
 ```
 
 ---

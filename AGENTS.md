@@ -4,9 +4,9 @@
 A collection of agent **skill** definitions (Markdown) shared by **Claude Code** (as a plugin marketplace) and **OpenCode**. There is no application, build, or codegen step and no `package.json` — the files are the product. CI only checks the skill files (see below).
 
 ## Layout
-- `skills/<skill-name>/SKILL.md` — one directory per skill, the single source of truth for both tools. Skills: `changelog`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`.
+- `skills/<skill-name>/SKILL.md` — one directory per skill, the single source of truth for both tools. Skills: `branch`, `changelog`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`.
 - `.claude-plugin/marketplace.json` — Claude Code marketplace `skill-hive`. Each plugin entry uses `"source": "./"` and lists its skill directories under `skills`:
-  - `git-workflow`: changelog, conventional-commit, pull-request, release, review
+  - `git-workflow`: branch, changelog, conventional-commit, pull-request, release, review
   - `code-quality`: cpp-linter, js-linter, python-linter, refactor
 - `opencode` — symlink to `skills/`, kept so existing OpenCode configs pointing at `opencode/` keep working. Don't put files in it.
 - `scripts/check-skills.py` — checks frontmatter (`name` = directory, kebab-case, only `name`/`description`, description ≤1024), that every skill is in exactly one marketplace plugin, and that the README table links it.

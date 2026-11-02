@@ -9,7 +9,7 @@
     {
       "name": "git-workflow",
       "source": "./",
-      "description": "Conventional commits with gitmoji, changelogs with git-cliff, releases, pull requests and PR reviews",
+      "description": "Branch naming, conventional commits with gitmoji, changelogs with git-cliff, releases, pull requests and PR reviews",
       "author": {
         "name": "halilibrahimonus"
       },
@@ -18,6 +18,7 @@
       "license": "MIT",
       "keywords": [
         "git",
+        "branch",
         "commit",
         "gitmoji",
         "changelog",
@@ -26,6 +27,7 @@
         "review"
       ],
       "skills": [
+        "./skills/branch",
         "./skills/changelog",
         "./skills/conventional-commit",
         "./skills/pull-request",

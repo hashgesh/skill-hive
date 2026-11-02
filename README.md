@@ -30,6 +30,7 @@ The same `skills/<name>/SKILL.md` files are used by both tools. In Claude Code t
 | [js-linter](skills/js-linter/) | `code-quality` | JS/TS lint, format and type check | `eslint`, `prettier`, `tsc` |
 | [python-linter](skills/python-linter/) | `code-quality` | Python lint, format and type check | `ruff`, `mypy` (optional) |
 | [refactor](skills/refactor/) | `code-quality` | Code analysis and refactoring patterns | `ast-grep` (optional) |
+| [tech-debt](skills/tech-debt/) | `code-quality` | Technical debt register: markers, hotspots, duplication, outdated deps | `git`, `rg`, `lizard`/`jscpd` (optional) |
 
 The CLIs are not bundled; install the ones you need (each skill lists install commands).
 

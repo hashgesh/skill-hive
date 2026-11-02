@@ -9,7 +9,7 @@ Guidelines for analyzing code, identifying refactoring opportunities, and applyi
 
 ## When Invoked
 
-1. **Ask scope**: which files, module, or smell to focus on? (Default: files changed on the current branch.)
+1. **Ask scope**: which files, module, or smell to focus on? (Default: files changed on the current branch.) To decide *where* to start across the whole repo, run the tech-debt skill first and pick its top items.
 2. **Check safety net**: find and run the project's tests. If there are none, say so and suggest writing characterization tests first.
 3. **Analyze**: list the smells found (table below) with `file:line`, ordered by impact.
 4. **Propose**: for each smell, the technique to apply and the files affected. Ask which to apply.

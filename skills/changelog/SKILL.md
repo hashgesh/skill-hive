@@ -55,11 +55,16 @@ trim = true
 conventional_commits = true
 filter_unconventional = true
 # Strip a leading gitmoji (":sparkles: " or "✨ ") so "✨ feat(x): y" parses as "feat(x): y".
+# Rewrite merge commits ("Merge pull request #4 ...", "Merge branch ...",
+# "Merge <sha> into <sha>") so they are skipped below instead of being
+# reported as parse errors. No conventional commit starts with "Merge ".
 commit_preprocessors = [
     { pattern = '^:[a-z0-9_+-]+:\s*', replace = "" },
     { pattern = '^[^\x00-\x7F]+\s*', replace = "" },
+    { pattern = '^Merge .*', replace = "chore(merge): merge" },
 ]
 commit_parsers = [
+    { message = "^chore\\(merge\\)", skip = true },
     { message = "^feat", group = "<!-- 0 -->Features" },
     { message = "^fix", group = "<!-- 1 -->Bug Fixes" },
     { message = "^perf", group = "<!-- 2 -->Performance" },

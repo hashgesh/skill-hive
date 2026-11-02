@@ -1,6 +1,6 @@
 ---
 name: review
-description: Review a GitHub pull request with gh - fetch the PR diff, commits and existing review state, analyze the changes (tests, breaking changes, size, C++ lint via cpp-linter), suggest approve / comment / request-changes, and post the review after confirmation. Use for code review, review PR, approve PR, request changes, LGTM.
+description: Review a GitHub pull request with gh - fetch the PR diff, commits and existing review state, analyze the changes (tests, breaking changes, size, lint via cpp-linter, python-linter and js-linter), suggest approve / comment / request-changes, and post the review after confirmation. Use for code review, review PR, approve PR, request changes, LGTM.
 ---
 
 # Review Skill
@@ -114,6 +114,15 @@ When C++ files are in the PR, run the cpp-linter skill's checks on the **changed
    - `clang-tidy {files} -p build` (or `-- -std=c++17`)
    - `cppcheck --enable=warning,style,performance,portability --suppress=missingIncludeSystem {files}`
 4. **Include findings in review** under a "C++ Analysis" section; only report lines the PR touched.
+
+### Python and JS/TS
+
+Same rules as C++ (PR checked out, changed files only, project config and lint scripts first, only report touched lines):
+
+- `.py`, `.pyi` → the python-linter skill's checks: `ruff check`, `ruff format --check`, and `mypy` if the project uses it
+- `.js`, `.jsx`, `.mjs`, `.cjs`, `.ts`, `.tsx` → the js-linter skill's checks: `eslint`, `prettier --check`, and `tsc --noEmit` if there is a `tsconfig.json`
+
+Report them under "Python Analysis" / "JS/TS Analysis" sections.
 
 ### C++ Review Example
 

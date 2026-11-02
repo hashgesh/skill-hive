@@ -9,6 +9,7 @@ Rules (shared by Claude Code and OpenCode):
 - every skill is listed in exactly one plugin in .claude-plugin/marketplace.json,
   and every listed path exists
 - every skill appears in the README table
+- INSTALL.md names every plugin and every skill
 
 Usage: python3 scripts/check-skills.py   (run from the repo root)
 """
@@ -80,6 +81,16 @@ def check_skills():
     return skills
 
 
+def check_install_guide(skills, plugins):
+    guide = (ROOT / "INSTALL.md").read_text(encoding="utf-8")
+    for plugin in plugins:
+        if f"{plugin}@skill-hive" not in guide:
+            error(f"INSTALL.md: no install command for plugin {plugin!r} ({plugin}@skill-hive)")
+    for skill in skills:
+        if f"`{skill}`" not in guide:
+            error(f"INSTALL.md: skill {skill!r} is not mentioned")
+
+
 def check_marketplace(skills):
     path = ROOT / ".claude-plugin" / "marketplace.json"
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -98,6 +109,7 @@ def check_marketplace(skills):
     for skill in skills:
         if skill not in owners:
             error(f"skill {skill!r} is not listed in any plugin in .claude-plugin/marketplace.json")
+    return [p.get("name", "?") for p in data.get("plugins", [])]
 
 
 def check_readme(skills):
@@ -109,14 +121,15 @@ def check_readme(skills):
 
 def main():
     skills = check_skills()
-    check_marketplace(skills)
+    plugins = check_marketplace(skills)
     check_readme(skills)
+    check_install_guide(skills, plugins)
     if errors:
         for e in errors:
             print(f"error: {e}", file=sys.stderr)
         print(f"\n{len(errors)} problem(s) found", file=sys.stderr)
         return 1
-    print(f"ok: {len(skills)} skills consistent across skills/, marketplace.json and README.md")
+    print(f"ok: {len(skills)} skills consistent across skills/, marketplace.json, README.md and INSTALL.md")
     return 0
 
 

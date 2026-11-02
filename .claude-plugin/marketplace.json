@@ -1,6 +1,6 @@
 {
   "name": "skill-hive",
-  "description": "Skills for git workflow automation and code quality, shared between Claude Code and OpenCode",
+  "description": "Skills for git workflow automation, code quality and code understanding, shared between Claude Code and OpenCode",
   "owner": {
     "name": "halilibrahimonus",
     "url": "https://github.com/halilibrahimonus"
@@ -71,6 +71,30 @@
         "./skills/python-linter",
         "./skills/refactor",
         "./skills/tech-debt"
+      ]
+    },
+    {
+      "name": "code-insight",
+      "source": "./",
+      "description": "Understand a codebase: guided repository tours for onboarding and code archaeology that explains why code looks the way it does",
+      "author": {
+        "name": "halilibrahimonus"
+      },
+      "homepage": "https://github.com/halilibrahimonus/skill-hive",
+      "repository": "https://github.com/halilibrahimonus/skill-hive",
+      "license": "MIT",
+      "keywords": [
+        "onboarding",
+        "codebase",
+        "architecture",
+        "git-blame",
+        "git-log",
+        "history",
+        "code-archaeology"
+      ],
+      "skills": [
+        "./skills/code-history",
+        "./skills/codebase-tour"
       ]
     }
   ]

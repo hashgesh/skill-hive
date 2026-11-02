@@ -1,26 +1,27 @@
 ---
 name: review
-description: Add review notes to a pull request with analysis output
+description: Review a GitHub pull request with gh - fetch the PR diff, commits and existing review state, analyze the changes (tests, breaking changes, size, C++ lint via cpp-linter), suggest approve / comment / request-changes, and post the review after confirmation. Use for code review, review PR, approve PR, request changes, LGTM.
 ---
 
 # Review Skill
 
-Add review notes to an existing pull request with code analysis.
+Analyze an existing GitHub pull request and post a review with `gh`.
 
 ## When Invoked
 
-1. **Ask PR number**: "Which PR to review?" (or detect from current branch)
-2. **Ask review type**: approve / comment / request-changes
-3. **Generate review content**:
-   - Get commits: `git log {target}..{source} --oneline`
-   - Get changes: `git diff {target}..{source}`
-   - Get code statistics
-4. **Generate review body**:
-   - Summary of changes
-   - File analysis
-   - Suggestions (optional)
-5. **Show preview**
-6. **Execute**: `gh pr review {pr_number} --{type} -b "{body}"`
+1. **Identify the PR**: ask "Which PR to review?" or detect it from the current branch with `gh pr view --json number -q .number`.
+2. **Fetch PR data** (all from GitHub, not local branches):
+   - Metadata: `gh pr view {n} --json number,title,author,baseRefName,headRefName,isDraft,additions,deletions,changedFiles,files,commits,reviewDecision,reviewRequests,reviews,comments`
+   - Diff: `gh pr diff {n}`
+   - Current user: `gh api user -q .login`
+3. **Analyze** the diff with the Auto-Analysis Rules below, plus Language-Specific Checks.
+4. **Suggest a review type** with the decision table, and show why.
+5. **Show preview** of the review body and the suggested type; let the user confirm or change the type.
+6. **Execute** - write the body to a temp file to avoid shell-quoting problems:
+   `gh pr review {n} --{approve|comment|request-changes} --body-file {file}`
+7. **Report** the result with the PR URL.
+
+Never post a review, and especially never approve, without the user's explicit confirmation in step 5.
 
 ## Review Types
 
@@ -28,19 +29,44 @@ Add review notes to an existing pull request with code analysis.
 - `--comment` : Leave a comment
 - `--request-changes` : Request changes
 
+## Decision Table
+
+Evaluate top to bottom; the first matching row wins.
+
+| Condition | Suggested type |
+|-----------|----------------|
+| PR author is the current user | `--comment` (GitHub rejects approve **and** request-changes on your own PR) |
+| Blocking issues found (bugs, breaking changes without notice, failing lint) | `--request-changes` |
+| Open questions or non-blocking suggestions | `--comment` |
+| No issues found | `--approve` |
+
+## Auto-Analysis Rules
+
+| Change Type | Finding |
+|-------------|---------|
+| docs only | No code impact - still read the diff for errors and broken links |
+| feat + test | Check tests cover the new behavior |
+| fix + test | Check a test reproduces the bug |
+| feat / fix without test | Suggest: "Consider adding tests" |
+| breaking change (`!` or `BREAKING CHANGE:`) | Check it is documented and intended |
+| 100+ files or 1000+ changed lines | Suggest: "Consider splitting into smaller PRs" |
+| Draft PR | Mention it is a draft; prefer `--comment` |
+
+Also check the existing `reviews` and `comments`: don't repeat points already raised, and mention unresolved change requests from others.
+
 ## Review Body Format
 
 ```
 ## Code Review
 
 ### Summary
-{commit summary}
+{what the PR does, from commits and diff}
 
 ### Changes
-{files changed with stats}
++{additions} -{deletions} in {changedFiles} files
 
 ### Analysis
-- {auto-generated insights}
+- {findings, with file:line where possible}
 
 ### Recommendation
 {LGTM / Needs changes / Suggestions}
@@ -50,88 +76,51 @@ Add review notes to an existing pull request with code analysis.
 
 ```
 User: Review PR 2
-Assistant: What type of review? (approve/comment/request-changes)
-User: approve
 
-→ Analyzing PR #2...
+→ gh pr view 2 ... / gh pr diff 2
+→ Author: alice (not you), 1 commit, +77 -0 in 1 file
 
 ## Code Review
 
 ### Summary
-- 📝 docs: add pull request skill (1)
+- 📝 docs: add pull request skill
 
 ### Changes
-- +77 -0 in 1 file
++77 -0 in 1 file
 
 ### Analysis
-- Documentation-only change
+- Documentation-only change, no code impact
 - No breaking changes
 - Clean commit history
 
 ### Recommendation
 LGTM! 👍
 
-Add this review? (yes/no)
-User: yes
+Suggested type: --approve (no issues found, not your PR)
+Post this review? (approve/comment/request-changes/no)
+User: approve
 
-→ Added review to PR #2
+→ Approved PR #2: https://github.com/{owner}/{repo}/pull/2
 ```
-
-## Auto-Analysis Logic
-
-### Step 1: Check for Review Requests
-- Get PR review threads: `gh pr view {pr_number} --json reviews`
-- Check if there are pending review requests or questions
-
-### Step 2: Determine Review Type
-
-| Condition | Action |
-|-----------|--------|
-| PR owner is self | `--comment` only (can't approve own PR) |
-| Has pending change requests | `--request-changes` |
-| Has questions in comments | `--comment` |
-| No issues found + not own PR | `--approve` |
-
-> **Note:** GitHub API - `--approve` and `--request-changes` only work on others' PRs.
-
-### Step 3: Generate Review Body
-
-Based on analysis:
-- **Approve**: "LGTM! 👍 Great work."
-- **Comment**: "Looks good, but consider X"
-- **Request Changes**: "Please address X before merging"
-
-## Auto-Analysis Rules
-
-| Change Type | Recommendation |
-|-------------|----------------|
-| docs only | LGTM |
-| feat + test | LGTM |
-| fix + test | LGTM |
-| feat without test | Comment: "Consider adding tests" |
-| breaking changes | Request changes: "Review breaking changes" |
-| 100+ files | Comment: "Consider splitting into smaller PRs" |
 
 ## Language-Specific Checks
 
-When C++ files are detected, run cpp-linter skill analysis:
+When C++ files are in the PR, run the cpp-linter skill's checks on the **changed files only**:
 
-1. **Detect C++ files**: `.cpp`, `.hpp`, `.h`, `.cc`
-2. **Run lint checks**:
-   - `clang-format --style=google --check {file}`
-   - `clang-tidy {file}`
-   - `cppcheck --enable=all {file}`
-3. **Include findings in review**:
-   - Formatting issues
-   - Style violations
-   - Security warnings
+1. **Detect C++ files** in `files`: `.cpp`, `.cc`, `.cxx`, `.h`, `.hpp`
+2. **Get the PR's code locally**: the working tree must be clean; then `gh pr checkout {n}` (ask first, and switch back afterwards)
+3. **Run lint checks** (respect the repo's `.clang-format` / `.clang-tidy` if present):
+   - `clang-format --style=file --dry-run --Werror {files}` (fallback `--style=Google`)
+   - `clang-tidy {files} -p build` (or `-- -std=c++17`)
+   - `cppcheck --enable=warning,style,performance,portability --suppress=missingIncludeSystem {files}`
+4. **Include findings in review** under a "C++ Analysis" section; only report lines the PR touched.
 
 ### C++ Review Example
 
 ```
 ### C++ Analysis (cpp-linter)
-- ⚠️ src/main.cpp:15 - Indentation incorrect
-- ⚠️ src/utils.cpp:42 - use 'const' for read-only variables
+- ⚠️ src/main.cpp:15 - code should be clang-formatted
+- ⚠️ src/utils.cpp:42 - variable can be declared const
 - ✅ No memory leaks detected
 
 Recommendation: Fix formatting issues before merge.

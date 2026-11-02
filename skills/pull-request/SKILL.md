@@ -85,4 +85,4 @@ Create PR? (yes/draft/no)
 - Hotfix: `hotfix/`
 - Release: `release/`
 
-Extract the type from the branch name for the PR title if available.
+Extract the type from the branch name for the PR title if available. The branch skill creates branches with these prefixes.

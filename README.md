@@ -3,6 +3,17 @@
   <p>Skills for git workflow automation and code quality, for <b>Claude Code</b> and <b>OpenCode</b></p>
 </div>
 
+## Install with an AI agent
+
+Paste this into Claude Code or OpenCode and it will install skill-hive for you (it asks before changing anything):
+
+```text
+Install skill-hive for me by following the instructions at
+https://raw.githubusercontent.com/halilibrahimonus/skill-hive/main/INSTALL.md
+```
+
+[INSTALL.md](INSTALL.md) covers both tools: the Claude Code marketplace, the OpenCode config, verification, optional CLI tools, updating and uninstalling. The manual steps are below.
+
 ## Skills
 
 The same `skills/<name>/SKILL.md` files are used by both tools. In Claude Code they are grouped into two plugins.
@@ -21,7 +32,7 @@ The same `skills/<name>/SKILL.md` files are used by both tools. In Claude Code t
 
 The CLIs are not bundled; install the ones you need (each skill lists install commands).
 
-## Claude Code
+## Claude Code (manual)
 
 Add the marketplace and install one or both plugins:
 
@@ -39,7 +50,7 @@ On Claude Code 2.1.275 or later you can do it in one step:
 
 Skills are namespaced by plugin, e.g. `/git-workflow:changelog` or `/code-quality:cpp-linter`, and Claude also picks them automatically from their descriptions. Update with `/plugin marketplace update skill-hive`.
 
-## OpenCode
+## OpenCode (manual)
 
 Clone the repo and add its `skills/` directory to the `skills` array in `~/.config/opencode/opencode.jsonc`:
 
@@ -49,4 +60,4 @@ Clone the repo and add its `skills/` directory to the `skills` array in `~/.conf
 }
 ```
 
-OpenCode loads `<dir>/<skill-name>/SKILL.md` directly, so the active skills follow the checked-out branch. The old `opencode/` path still works (it is a symlink to `skills/`).
+OpenCode loads `<dir>/<skill-name>/SKILL.md` directly, so the active skills follow the checked-out branch; update with `git pull`. Check with `opencode debug skill` — a path that doesn't exist is ignored silently. The old `opencode/` path still works (it is a symlink to `skills/`).

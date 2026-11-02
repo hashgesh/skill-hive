@@ -35,6 +35,8 @@ for msg in \
   "📝 docs: add install steps" \
   "🔖 release: v0.9.0" \
   "Merge pull request #1 from someone/feature" \
+  "Merge 1a2b3c4 into 5d6e7f8" \
+  "Merge tag 'v0.8.0'" \
   "random unconventional commit"; do
   git -C "$repo" commit -q --allow-empty -m "$msg"
 done

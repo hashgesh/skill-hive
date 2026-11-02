@@ -1,0 +1,41 @@
+{
+  "name": "skill-hive",
+  "description": "Skills for git workflow automation and code quality, shared between Claude Code and OpenCode",
+  "owner": {
+    "name": "halilibrahimonus",
+    "url": "https://github.com/halilibrahimonus"
+  },
+  "plugins": [
+    {
+      "name": "git-workflow",
+      "source": "./",
+      "description": "Conventional commits with gitmoji, changelogs with git-cliff, releases, pull requests and PR reviews",
+      "author": { "name": "halilibrahimonus" },
+      "homepage": "https://github.com/halilibrahimonus/skill-hive",
+      "repository": "https://github.com/halilibrahimonus/skill-hive",
+      "license": "MIT",
+      "keywords": ["git", "commit", "gitmoji", "changelog", "release", "pull-request", "review"],
+      "skills": [
+        "./skills/changelog",
+        "./skills/conventional-commit",
+        "./skills/pull-request",
+        "./skills/release",
+        "./skills/review"
+      ]
+    },
+    {
+      "name": "code-quality",
+      "source": "./",
+      "description": "C++ linting with clang-format, clang-tidy and cppcheck, and refactoring with ast-grep",
+      "author": { "name": "halilibrahimonus" },
+      "homepage": "https://github.com/halilibrahimonus/skill-hive",
+      "repository": "https://github.com/halilibrahimonus/skill-hive",
+      "license": "MIT",
+      "keywords": ["cpp", "lint", "clang-format", "clang-tidy", "refactor", "ast-grep"],
+      "skills": [
+        "./skills/cpp-linter",
+        "./skills/refactor"
+      ]
+    }
+  ]
+}

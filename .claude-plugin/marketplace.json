@@ -10,11 +10,21 @@
       "name": "git-workflow",
       "source": "./",
       "description": "Conventional commits with gitmoji, changelogs with git-cliff, releases, pull requests and PR reviews",
-      "author": { "name": "halilibrahimonus" },
+      "author": {
+        "name": "halilibrahimonus"
+      },
       "homepage": "https://github.com/halilibrahimonus/skill-hive",
       "repository": "https://github.com/halilibrahimonus/skill-hive",
       "license": "MIT",
-      "keywords": ["git", "commit", "gitmoji", "changelog", "release", "pull-request", "review"],
+      "keywords": [
+        "git",
+        "commit",
+        "gitmoji",
+        "changelog",
+        "release",
+        "pull-request",
+        "review"
+      ],
       "skills": [
         "./skills/changelog",
         "./skills/conventional-commit",
@@ -26,14 +36,32 @@
     {
       "name": "code-quality",
       "source": "./",
-      "description": "C++ linting with clang-format, clang-tidy and cppcheck, and refactoring with ast-grep",
-      "author": { "name": "halilibrahimonus" },
+      "description": "Linting for C++ (clang-format, clang-tidy, cppcheck), Python (ruff, mypy) and JS/TS (ESLint, Prettier, tsc), and refactoring with ast-grep",
+      "author": {
+        "name": "halilibrahimonus"
+      },
       "homepage": "https://github.com/halilibrahimonus/skill-hive",
       "repository": "https://github.com/halilibrahimonus/skill-hive",
       "license": "MIT",
-      "keywords": ["cpp", "lint", "clang-format", "clang-tidy", "refactor", "ast-grep"],
+      "keywords": [
+        "lint",
+        "cpp",
+        "clang-format",
+        "clang-tidy",
+        "python",
+        "ruff",
+        "mypy",
+        "javascript",
+        "typescript",
+        "eslint",
+        "prettier",
+        "refactor",
+        "ast-grep"
+      ],
       "skills": [
         "./skills/cpp-linter",
+        "./skills/js-linter",
+        "./skills/python-linter",
         "./skills/refactor"
       ]
     }

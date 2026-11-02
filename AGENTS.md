@@ -16,4 +16,6 @@ A collection of OpenCode **skill** definitions (Markdown). There is no applicati
 ## Git workflow
 - `develop` is the integration branch; add skills there, then merge to `main`.
 - Commits use conventional commits **with a gitmoji prefix and a scope when applicable**: `✨ feat(refactor): add refactor skill`, `📝 docs(cpp-linter): add ...`. Follow the existing history.
-- Skills wrap external CLIs the user must install: `gitmoji-cli`, `git-cliff`, `gh`, `ast-grep`, `clang-format`/`clang-tidy`/`cppcheck`. Don't assume they're present.
+- Skills wrap external CLIs the user must install: `git-cliff`, `gh`/`glab`, `ast-grep`, `clang-format`/`clang-tidy`/`cppcheck` (`gitmoji-cli` is optional). Don't assume they're present; each skill should check for its tool and show install commands.
+- Verify every command and flag a skill tells the agent to run (e.g. install the tool in a scratch dir and run it). Prefer non-interactive commands and `--body-file`/`-F` over inline quoted bodies.
+- The changelog skill's `cliff.toml` strips the leading gitmoji before parsing; keep it in sync with the conventional-commit mapping.

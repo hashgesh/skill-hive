@@ -9,7 +9,6 @@ A collection of agent **skill** definitions (Markdown) shared by **Claude Code**
   - `git-workflow`: branch, changelog, conventional-commit, pull-request, release, review
   - `code-quality`: cpp-linter, js-linter, python-linter, refactor, tech-debt
   - `code-insight`: code-history, codebase-tour
-- `opencode` — symlink to `skills/`, kept so existing OpenCode configs pointing at `opencode/` keep working. Don't put files in it.
 - `scripts/check-skills.py` — checks frontmatter (`name` = directory, kebab-case, only `name`/`description`, description ≤1024), that every skill is in exactly one marketplace plugin, and that the README table links it.
 - `scripts/test-changelog.sh` — extracts the `cliff.toml` from `skills/changelog/SKILL.md` and tests it with git-cliff on gitmoji commits and on this repo's history.
 - `.github/workflows/validate.yml` — runs both scripts and `claude plugin validate --strict .` on pushes to `main` and on PRs.

@@ -65,4 +65,4 @@ Clone the repo and add its `skills/` directory to the `skills` array in `~/.conf
 }
 ```
 
-OpenCode loads `<dir>/<skill-name>/SKILL.md` directly, so the active skills follow the checked-out branch; update with `git pull`. Check with `opencode debug skill` — a path that doesn't exist is ignored silently. The old `opencode/` path still works (it is a symlink to `skills/`).
+OpenCode loads `<dir>/<skill-name>/SKILL.md` directly, so the active skills follow the checked-out branch; update with `git pull`. Check with `opencode debug skill` — a path that doesn't exist is ignored silently.

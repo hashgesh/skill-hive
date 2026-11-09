@@ -96,7 +96,7 @@ OpenCode loads skills from directories listed in its config, so it needs a local
    }
    ```
 
-   Older setups may point at `<clone>/opencode` — that still works (it is a symlink to `skills/`); leave it or replace it with `<clone>/skills`, but don't list both.
+   Older setups may point at `<clone>/opencode`; that path no longer exists, so replace it with `<clone>/skills`.
 
 4. **Verify.** OpenCode silently ignores a path that doesn't exist, so always check:
 

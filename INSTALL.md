@@ -11,7 +11,7 @@ skill-hive is a set of agent skills (`skills/<name>/SKILL.md`) that work in both
 | `code-quality` | `cpp-linter`, `js-linter`, `python-linter`, `refactor`, `tech-debt` |
 | `code-insight` | `code-history`, `codebase-tour` |
 
-Repository: `https://github.com/halilibrahimonus/skill-hive`
+Repository: `https://github.com/hashgesh/skill-hive`
 
 ---
 
@@ -39,7 +39,7 @@ Skip if the user didn't choose Claude Code.
 1. Add the marketplace (safe to re-run; it reports "already on disk" if present):
 
    ```bash
-   claude plugin marketplace add halilibrahimonus/skill-hive
+   claude plugin marketplace add hashgesh/skill-hive
    ```
 
 2. Install each chosen plugin for the user (safe to re-run):
@@ -65,7 +65,7 @@ Skip if the user didn't choose Claude Code.
 4. Tell the user to restart Claude Code (or run `/reload-plugins` in a session). Skills are namespaced: `/git-workflow:changelog`, `/code-quality:python-linter`, `/code-insight:codebase-tour`, and Claude also picks them automatically from their descriptions.
 
 > If you are running *inside* Claude Code and `claude` commands are unavailable, give the user these to type instead:
-> `/plugin marketplace add halilibrahimonus/skill-hive`, then `/plugin install git-workflow@skill-hive`, `/plugin install code-quality@skill-hive` and `/plugin install code-insight@skill-hive`.
+> `/plugin marketplace add hashgesh/skill-hive`, then `/plugin install git-workflow@skill-hive`, `/plugin install code-quality@skill-hive` and `/plugin install code-insight@skill-hive`.
 
 ## Step 3 — OpenCode
 
@@ -76,7 +76,7 @@ OpenCode loads skills from directories listed in its config, so it needs a local
 1. **Pick a clone location.** Default: `~/.local/share/skill-hive` (ask the user if they prefer another). If that directory already contains a skill-hive clone, update it with `git -C <dir> pull --ff-only` instead of cloning again.
 
    ```bash
-   git clone https://github.com/halilibrahimonus/skill-hive.git ~/.local/share/skill-hive
+   git clone https://github.com/hashgesh/skill-hive.git ~/.local/share/skill-hive
    ```
 
 2. **Find the global config file**: `~/.config/opencode/opencode.jsonc`, or `~/.config/opencode/opencode.json` if that one exists instead. Create `opencode.jsonc` if neither exists. Read the file first.

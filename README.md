@@ -9,7 +9,7 @@ Paste this into Claude Code or OpenCode and it will install skill-hive for you (
 
 ```text
 Install skill-hive for me by following the instructions at
-https://raw.githubusercontent.com/halilibrahimonus/skill-hive/main/INSTALL.md
+https://raw.githubusercontent.com/hashgesh/skill-hive/main/INSTALL.md
 ```
 
 [INSTALL.md](INSTALL.md) covers both tools: the Claude Code marketplace, the OpenCode config, verification, optional CLI tools, updating and uninstalling. The manual steps are below.
@@ -41,7 +41,7 @@ The CLIs are not bundled; install the ones you need (each skill lists install co
 Add the marketplace and install one or both plugins:
 
 ```
-/plugin marketplace add halilibrahimonus/skill-hive
+/plugin marketplace add hashgesh/skill-hive
 /plugin install git-workflow@skill-hive
 /plugin install code-quality@skill-hive
 /plugin install code-insight@skill-hive
@@ -50,7 +50,7 @@ Add the marketplace and install one or both plugins:
 On Claude Code 2.1.275 or later you can do it in one step:
 
 ```
-/plugin install git-workflow --marketplace halilibrahimonus/skill-hive
+/plugin install git-workflow --marketplace hashgesh/skill-hive
 ```
 
 Skills are namespaced by plugin, e.g. `/git-workflow:changelog`, `/code-quality:cpp-linter` or `/code-insight:codebase-tour`, and Claude also picks them automatically from their descriptions. Update with `/plugin marketplace update skill-hive`.

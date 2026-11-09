@@ -2,8 +2,8 @@
   "name": "skill-hive",
   "description": "Skills for git workflow automation, code quality and code understanding, shared between Claude Code and OpenCode",
   "owner": {
-    "name": "halilibrahimonus",
-    "url": "https://github.com/halilibrahimonus"
+    "name": "hashgesh",
+    "url": "https://github.com/hashgesh"
   },
   "plugins": [
     {
@@ -11,10 +11,10 @@
       "source": "./",
       "description": "Branch naming, conventional commits with gitmoji, changelogs with git-cliff, releases, pull requests and PR reviews",
       "author": {
-        "name": "halilibrahimonus"
+        "name": "hashgesh"
       },
-      "homepage": "https://github.com/halilibrahimonus/skill-hive",
-      "repository": "https://github.com/halilibrahimonus/skill-hive",
+      "homepage": "https://github.com/hashgesh/skill-hive",
+      "repository": "https://github.com/hashgesh/skill-hive",
       "license": "MIT",
       "keywords": [
         "git",
@@ -40,10 +40,10 @@
       "source": "./",
       "description": "Linting for C++ (clang-format, clang-tidy, cppcheck), Python (ruff, mypy) and JS/TS (ESLint, Prettier, tsc), refactoring with ast-grep, and technical debt audits",
       "author": {
-        "name": "halilibrahimonus"
+        "name": "hashgesh"
       },
-      "homepage": "https://github.com/halilibrahimonus/skill-hive",
-      "repository": "https://github.com/halilibrahimonus/skill-hive",
+      "homepage": "https://github.com/hashgesh/skill-hive",
+      "repository": "https://github.com/hashgesh/skill-hive",
       "license": "MIT",
       "keywords": [
         "lint",
@@ -78,10 +78,10 @@
       "source": "./",
       "description": "Understand a codebase: guided repository tours for onboarding and code archaeology that explains why code looks the way it does",
       "author": {
-        "name": "halilibrahimonus"
+        "name": "hashgesh"
       },
-      "homepage": "https://github.com/halilibrahimonus/skill-hive",
-      "repository": "https://github.com/halilibrahimonus/skill-hive",
+      "homepage": "https://github.com/hashgesh/skill-hive",
+      "repository": "https://github.com/hashgesh/skill-hive",
       "license": "MIT",
       "keywords": [
         "onboarding",

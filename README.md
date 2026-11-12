@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/logo.png" width="400" height="400" alt="skill-hive logo"/>
+  <img src="assets/banner.svg" width="800" alt="skill-hive — agent skills for Claude Code and OpenCode"/>
   <p>Skills for git workflow, code quality and code understanding, for <b>Claude Code</b> and <b>OpenCode</b></p>
 </div>
 

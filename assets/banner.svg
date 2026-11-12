@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <!-- GitHub social preview size (1280x640, 1.91:1). Export to PNG and upload under
+       Settings > General > Social preview — GitHub does not accept SVG there. -->
+  <defs>
+    <filter id="glowA" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowO" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="coreGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd84a"/>
+      <stop offset="1" stop-color="#ff7a00"/>
+    </linearGradient>
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffc94a" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ff9500" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bgGlow" cx="30%" cy="35%" r="60%">
+      <stop offset="0" stop-color="#33200a" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#0c0703" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1280" height="640" fill="url(#bgGlow)"/>
+  <g stroke="#2a1a08" stroke-width="1">
+    <path d="M0 160 H1280 M0 320 H1280 M0 480 H1280"/>
+    <path d="M320 0 V640 M640 0 V640 M960 0 V640"/>
+  </g>
+
+  <!-- mark, left side: honeycomb of skills around a glowing agent cell -->
+  <g transform="translate(150 190)">
+    <g stroke="#ffb300" stroke-width="2.5" stroke-linecap="round" opacity="0.85">
+      <path d="M237.4 192.0 L256.4 203.0"/>
+      <path d="M130.0 254.0 L130.0 276.0"/>
+      <path d="M22.6 192.0 L3.6 203.0"/>
+      <path d="M22.6 68.0 L3.6 57.0"/>
+      <path d="M130.0 6.0 L130.0 -16.0"/>
+      <path d="M237.4 68.0 L256.4 57.0"/>
+      <circle cx="256.4" cy="203.0" r="4" fill="#ffb300"/>
+      <circle cx="130.0" cy="276.0" r="4" fill="#ffb300"/>
+      <circle cx="3.6" cy="203.0" r="4" fill="#ffb300"/>
+      <circle cx="3.6" cy="57.0" r="4" fill="#ffb300"/>
+      <circle cx="130.0" cy="-16.0" r="4" fill="#ffb300"/>
+      <circle cx="256.4" cy="57.0" r="4" fill="#ffb300"/>
+    </g>
+    <g stroke="#3d2a0c" stroke-width="2.5" stroke-linejoin="round" fill="#140c04">
+    <polygon points="245.0,171.0 223.0,209.1 179.0,209.1 157.0,171.0 179.0,132.9 223.0,132.9"/>
+    <polygon points="174.0,212.0 152.0,250.1 108.0,250.1 86.0,212.0 108.0,173.9 152.0,173.9"/>
+    <polygon points="103.0,171.0 81.0,209.1 37.0,209.1 15.0,171.0 37.0,132.9 81.0,132.9"/>
+    <polygon points="103.0,89.0 81.0,127.1 37.0,127.1 15.0,89.0 37.0,50.9 81.0,50.9"/>
+    <polygon points="174.0,48.0 152.0,86.1 108.0,86.1 86.0,48.0 108.0,9.9 152.0,9.9"/>
+    <polygon points="245.0,89.0 223.0,127.1 179.0,127.1 157.0,89.0 179.0,50.9 223.0,50.9"/>
+    </g>
+    <g fill="#ffb300" opacity="0.16">
+    <polygon points="174.0,212.0 152.0,250.1 108.0,250.1 86.0,212.0 108.0,173.9 152.0,173.9"/>
+    <polygon points="103.0,89.0 81.0,127.1 37.0,127.1 15.0,89.0 37.0,50.9 81.0,50.9"/>
+    <polygon points="245.0,89.0 223.0,127.1 179.0,127.1 157.0,89.0 179.0,50.9 223.0,50.9"/>
+    </g>
+    <g stroke="#ffb300" stroke-width="1.5" stroke-linejoin="round" fill="none" opacity="0.6" filter="url(#glowA)">
+    <polygon points="245.0,171.0 223.0,209.1 179.0,209.1 157.0,171.0 179.0,132.9 223.0,132.9"/>
+    <polygon points="174.0,212.0 152.0,250.1 108.0,250.1 86.0,212.0 108.0,173.9 152.0,173.9"/>
+    <polygon points="103.0,171.0 81.0,209.1 37.0,209.1 15.0,171.0 37.0,132.9 81.0,132.9"/>
+    <polygon points="103.0,89.0 81.0,127.1 37.0,127.1 15.0,89.0 37.0,50.9 81.0,50.9"/>
+    <polygon points="174.0,48.0 152.0,86.1 108.0,86.1 86.0,48.0 108.0,9.9 152.0,9.9"/>
+    <polygon points="245.0,89.0 223.0,127.1 179.0,127.1 157.0,89.0 179.0,50.9 223.0,50.9"/>
+    </g>
+    <circle cx="130" cy="130" r="62" fill="url(#coreGlow)"/>
+    <polygon points="170.0,130.0 150.0,164.6 110.0,164.6 90.0,130.0 110.0,95.4 150.0,95.4" fill="url(#coreGrad)" stroke="url(#coreGrad)" stroke-width="6"
+             stroke-linejoin="round" filter="url(#glowO)"/>
+    <text x="130" y="140" text-anchor="middle" fill="#0c0703" font-family="monospace" font-size="30"
+          font-weight="700">&gt;_</text>
+  </g>
+
+  <!-- wordmark + tagline, right side -->
+  <g transform="translate(470 0)">
+    <text x="0" y="300" font-family="'Share Tech Mono', Consolas, monospace" font-weight="700"
+          font-size="96" letter-spacing="2" fill="#fff3d6">skill<tspan fill="#ffb300">-</tspan>hive</text>
+    <text x="4" y="350" font-family="'Share Tech Mono', Consolas, monospace" font-size="22"
+          letter-spacing="1" fill="#a88c58">agent skills for Claude Code and OpenCode</text>
+    <text x="4" y="385" font-family="'Share Tech Mono', Consolas, monospace" font-size="16"
+          letter-spacing="0.5" fill="#6e5a36">git workflow &#183; code quality &#183; code insight</text>
+  </g>
+</svg>

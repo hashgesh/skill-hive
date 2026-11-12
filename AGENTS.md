@@ -13,7 +13,7 @@ A collection of agent **skill** definitions (Markdown) shared by **Claude Code**
 - `scripts/test-changelog.sh` — extracts the `cliff.toml` from `skills/changelog/SKILL.md` and tests it with git-cliff on gitmoji commits and on this repo's history.
 - `.github/workflows/validate.yml` — runs both scripts and `claude plugin validate --strict .` on pushes to `main` and on PRs.
 - `INSTALL.md` — step-by-step install guide written for an AI agent (Claude Code or OpenCode); the README tells users to point their agent at its raw `main` URL. Keep its plugin/skill tables, expected `claude plugin details` output and skill count in sync with the marketplace.
-- `README.md` — skill table and install instructions for both tools. `assets/` — logo. `LICENSE` — MIT.
+- `README.md` — skill table and install instructions for both tools. `assets/` — `banner.svg` (README banner, 1280x640) and the older `logo.png`. `LICENSE` — MIT.
 
 ## Adding / editing a skill
 - Every `SKILL.md` starts with YAML frontmatter with only `name` + `description` (both tools read these; don't add tool-specific fields). `name` must equal the directory name: lowercase kebab-case, unique. `description` (max 1024 chars) is what both tools use to decide when to load the skill, so keep it keyword- and trigger-rich.

@@ -1,7 +1,20 @@
 <div align="center">
   <img src="assets/banner.svg" width="800" alt="skill-hive — agent skills for Claude Code and OpenCode"/>
   <p>Skills for git workflow, code quality and code understanding, for <b>Claude Code</b> and <b>OpenCode</b></p>
+  <p>
+    <a href="https://github.com/hashgesh/skill-hive/actions/workflows/validate.yml"><img src="https://github.com/hashgesh/skill-hive/actions/workflows/validate.yml/badge.svg?branch=main" alt="validate"/></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"/></a>
+    <img src="https://img.shields.io/badge/skills-13-orange.svg" alt="13 skills"/>
+    <img src="https://img.shields.io/badge/Claude%20Code-plugin%20marketplace-8A2BE2.svg" alt="Claude Code plugin marketplace"/>
+    <img src="https://img.shields.io/badge/OpenCode-compatible-2ea44f.svg" alt="OpenCode compatible"/>
+  </p>
 </div>
+
+## Why skill-hive?
+
+- **One source, two agents.** Each skill is a single `SKILL.md` that Claude Code (as a plugin marketplace) and OpenCode load as-is — no per-tool copies to drift apart.
+- **Wraps real tools instead of guessing.** Skills drive `git-cliff`, `gh`/`glab`, `ast-grep`, `clang-tidy`, `ruff`, `eslint`, `lizard`, `scc` and friends; each one checks that its tool is installed and shows the install command if not.
+- **Validated in CI.** Every push checks frontmatter, marketplace membership and the README table, runs `claude plugin validate --strict`, and tests the changelog skill's `cliff.toml` with git-cliff.
 
 ## Install with an AI agent
 
@@ -13,6 +26,20 @@ https://raw.githubusercontent.com/hashgesh/skill-hive/main/INSTALL.md
 ```
 
 [INSTALL.md](INSTALL.md) covers both tools: the Claude Code marketplace, the OpenCode config, verification, optional CLI tools, updating and uninstalling. The manual steps are below.
+
+## Try it
+
+Once installed, just ask — the agent picks the skill from its description:
+
+| Ask | Skill |
+|-----|-------|
+| "Give me a tour of this repo, I'm new here" | `codebase-tour` |
+| "Why is this function written like this?" | `code-history` |
+| "Where is our worst technical debt?" | `tech-debt` |
+| "Commit these changes" | `conventional-commit` |
+| "Open a PR for this branch" | `pull-request` |
+| "Review PR #42" | `review` |
+| "Cut a minor release with a changelog" | `release` |
 
 ## Skills
 

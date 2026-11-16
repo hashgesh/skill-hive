@@ -1,6 +1,6 @@
 ---
 name: conventional-commit
-description: Write, commit and validate conventional commit messages with a gitmoji prefix and scope, e.g. "✨ feat(auth): add login endpoint". Maps gitmoji to types (feat, fix, docs, refactor, ...), marks breaking changes, checks subject rules. Use for commit, commit message, git commit, conventional commits, gitmoji, lint commit.
+description: 'Write, commit and validate conventional commit messages with a gitmoji prefix and scope, e.g. "✨ feat(auth): add login endpoint". Maps gitmoji to types (feat, fix, docs, refactor, ...), marks breaking changes, checks subject rules. Use for commit, commit message, git commit, conventional commits, gitmoji, lint commit.'
 ---
 
 # Conventional Commit Skill with Gitmoji

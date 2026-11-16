@@ -1,0 +1,22 @@
+{
+  "name": "git-workflow",
+  "version": "2.0.0",
+  "description": "Branch naming, conventional commits with gitmoji, changelogs with git-cliff, releases, pull requests and PR reviews",
+  "author": {
+    "name": "hashgesh",
+    "url": "https://github.com/hashgesh"
+  },
+  "homepage": "https://github.com/hashgesh/skill-hive",
+  "repository": "https://github.com/hashgesh/skill-hive",
+  "license": "MIT",
+  "keywords": [
+    "git",
+    "branch",
+    "commit",
+    "gitmoji",
+    "changelog",
+    "release",
+    "pull-request",
+    "review"
+  ]
+}

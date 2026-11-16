@@ -27,6 +27,7 @@ jobs:
           node-version: 22
       - run: npm install -g @anthropic-ai/claude-code@2.1.316
       - run: claude plugin validate --strict .
+      - run: for p in plugins/*/; do claude plugin validate --strict "$p" || exit 1; done
 
   changelog:
     name: Changelog config (git-cliff)

@@ -1,0 +1,21 @@
+{
+  "name": "code-insight",
+  "version": "2.0.0",
+  "description": "Understand a codebase: guided repository tours for onboarding and code archaeology that explains why code looks the way it does",
+  "author": {
+    "name": "hashgesh",
+    "url": "https://github.com/hashgesh"
+  },
+  "homepage": "https://github.com/hashgesh/skill-hive",
+  "repository": "https://github.com/hashgesh/skill-hive",
+  "license": "MIT",
+  "keywords": [
+    "onboarding",
+    "codebase",
+    "architecture",
+    "git-blame",
+    "git-log",
+    "history",
+    "code-archaeology"
+  ]
+}

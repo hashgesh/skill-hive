@@ -8,9 +8,9 @@
   "plugins": [
     {
       "name": "git-workflow",
-      "source": "./",
+      "source": "./plugins/git-workflow",
       "description": "Branch naming, conventional commits with gitmoji, changelogs with git-cliff, releases, pull requests and PR reviews",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": {
         "name": "hashgesh"
       },
@@ -26,21 +26,13 @@
         "release",
         "pull-request",
         "review"
-      ],
-      "skills": [
-        "./skills/branch",
-        "./skills/changelog",
-        "./skills/conventional-commit",
-        "./skills/pull-request",
-        "./skills/release",
-        "./skills/review"
       ]
     },
     {
       "name": "code-quality",
-      "source": "./",
+      "source": "./plugins/code-quality",
       "description": "Linting for C++ (clang-format, clang-tidy, cppcheck), Python (ruff, mypy) and JS/TS (ESLint, Prettier, tsc), refactoring with ast-grep, and technical debt audits",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": {
         "name": "hashgesh"
       },
@@ -66,20 +58,13 @@
         "hotspots",
         "lizard",
         "jscpd"
-      ],
-      "skills": [
-        "./skills/cpp-linter",
-        "./skills/js-linter",
-        "./skills/python-linter",
-        "./skills/refactor",
-        "./skills/tech-debt"
       ]
     },
     {
       "name": "code-insight",
-      "source": "./",
+      "source": "./plugins/code-insight",
       "description": "Understand a codebase: guided repository tours for onboarding and code archaeology that explains why code looks the way it does",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": {
         "name": "hashgesh"
       },
@@ -94,10 +79,6 @@
         "git-log",
         "history",
         "code-archaeology"
-      ],
-      "skills": [
-        "./skills/code-history",
-        "./skills/codebase-tour"
       ]
     }
   ]

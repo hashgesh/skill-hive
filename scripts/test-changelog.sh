@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Test the cliff.toml embedded in skills/changelog/SKILL.md against
+# Test the cliff.toml embedded in plugins/git-workflow/skills/changelog/SKILL.md against
 # gitmoji-prefixed conventional commits, and against this repo's own history.
 #
 # Usage: scripts/test-changelog.sh   (needs git-cliff on PATH)
@@ -10,8 +10,8 @@ work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
 
 config="$work/cliff.toml"
-awk '/^```toml/{f=1;next} /^```/{f=0} f' "$root/skills/changelog/SKILL.md" > "$config"
-[ -s "$config" ] || { echo "error: no toml block found in skills/changelog/SKILL.md" >&2; exit 1; }
+awk '/^```toml/{f=1;next} /^```/{f=0} f' "$root/plugins/git-workflow/skills/changelog/SKILL.md" > "$config"
+[ -s "$config" ] || { echo "error: no toml block found in plugins/git-workflow/skills/changelog/SKILL.md" >&2; exit 1; }
 
 fail=0
 expect() { # expect <description> <needle> <haystack>

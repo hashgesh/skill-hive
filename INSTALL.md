@@ -102,15 +102,17 @@ OpenCode loads skills from directories listed in its config, so it needs a local
 
    Older setups may point at `<clone>/skills` (before v2.0.0) or `<clone>/opencode`; those paths no longer exist, so replace them with the `plugins/<plugin>/skills` paths above.
 
-4. **Verify.** OpenCode silently ignores a path that doesn't exist, so always check:
+4. **Restart OpenCode.** Config is read only at startup. If a background server is running (`opencode serve --service`), restart it too: it keeps the config, and the environment (e.g. `OPENCODE_CONFIG`), it was started with.
+
+5. **Verify.** OpenCode silently ignores a path that doesn't exist, so always check:
 
    ```bash
-   opencode debug skill
+   opencode api GET /api/skill
    ```
 
-   The output is JSON; it must contain entries whose `location` is under `<clone>/plugins/` for every chosen plugin's skills (all 13 when all three are chosen): `branch`, `changelog`, `code-history`, `codebase-tour`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`, `tech-debt`. If they are missing, re-check the path in the config.
+   The output is JSON with the skills under `data`; every chosen plugin's skills must appear with a `data[].path` under `<clone>/plugins/` (all 13 when all three are chosen): `branch`, `changelog`, `code-history`, `codebase-tour`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`, `tech-debt`. The top-level `location` is only the directory the query ran in.
 
-5. Tell the user to restart OpenCode; config is loaded only at startup.
+   Right after a restart the first answer can come back before the skill scan finishes (`"data": []`, or only built-in skills): wait a few seconds and ask again before concluding anything. Don't add `--standalone`; it returns an empty list. Older OpenCode versions used `opencode debug skill` instead. If skill-hive skills are missing, re-check the paths in the config; if a same-named skill comes from another path, OpenCode may pick that copy, so remove the duplicate.
 
 > **Don't** symlink skill-hive into `~/.claude/skills` when Claude Code has the plugins installed: OpenCode also reads `~/.claude/skills`, but Claude Code would then load every skill twice (once from the plugin, once as a personal skill).
 
@@ -137,7 +139,7 @@ The skills call external CLIs and check for them at run time, so nothing breaks 
 Summarize for the user:
 
 - Claude Code: marketplace added (yes/no), plugins installed and their scope, result of `claude plugin details`
-- OpenCode: clone location, config file and the line you added, number of skill-hive skills in `opencode debug skill`
+- OpenCode: clone location, config file and the paths you added, number of skill-hive skills in `opencode api GET /api/skill` and the folder their `path` points to
 - CLI tools installed or still missing
 - What to restart
 

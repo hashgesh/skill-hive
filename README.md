@@ -96,4 +96,4 @@ Clone the repo and add the `skills/` directory of each plugin you want to the `s
 }
 ```
 
-OpenCode loads `<dir>/<skill-name>/SKILL.md` directly, so the active skills follow the checked-out branch; update with `git pull`. Check with `opencode debug skill` — a path that doesn't exist is ignored silently.
+OpenCode loads `<dir>/<skill-name>/SKILL.md` directly, so the active skills follow the checked-out branch; update with `git pull`. Restart OpenCode (and `opencode serve --service`, if you run it), then check with `opencode api GET /api/skill`: every skill-hive skill's `path` should be under `plugins/` in your clone. A path that doesn't exist is ignored silently, and the first answer after a restart can be empty, so ask again after a few seconds.

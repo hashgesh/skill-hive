@@ -8,6 +8,9 @@
   },
   "homepage": "https://github.com/hashgesh/skill-hive",
   "repository": "https://github.com/hashgesh/skill-hive",
+  "documentationUrl": "https://github.com/hashgesh/skill-hive/blob/main/plugins/code-insight/README.md",
+  "supportUrl": "https://github.com/hashgesh/skill-hive/issues",
+  "privacyPolicyUrl": "https://github.com/hashgesh/skill-hive/blob/main/PRIVACY.md",
   "license": "MIT",
   "keywords": [
     "onboarding",

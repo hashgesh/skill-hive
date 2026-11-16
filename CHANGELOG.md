@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Documentation
 
 - **agents:** Document release title format
+- **install:** Verify OpenCode skills with opencode api GET /api/skill
 
 ## [1.0.0] - 2026-11-16
 

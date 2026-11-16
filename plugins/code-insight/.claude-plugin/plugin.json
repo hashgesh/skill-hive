@@ -1,6 +1,6 @@
 {
   "name": "code-insight",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Understand a codebase: guided repository tours for onboarding and code archaeology that explains why code looks the way it does",
   "author": {
     "name": "hashgesh",

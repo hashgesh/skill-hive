@@ -10,7 +10,7 @@
       "name": "git-workflow",
       "source": "./plugins/git-workflow",
       "description": "Branch naming, conventional commits with gitmoji, changelogs with git-cliff, releases, pull requests and PR reviews",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": {
         "name": "hashgesh"
       },
@@ -32,7 +32,7 @@
       "name": "code-quality",
       "source": "./plugins/code-quality",
       "description": "Linting for C++ (clang-format, clang-tidy, cppcheck), Python (ruff, mypy) and JS/TS (ESLint, Prettier, tsc), refactoring with ast-grep, and technical debt audits",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": {
         "name": "hashgesh"
       },
@@ -64,7 +64,7 @@
       "name": "code-insight",
       "source": "./plugins/code-insight",
       "description": "Understand a codebase: guided repository tours for onboarding and code archaeology that explains why code looks the way it does",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": {
         "name": "hashgesh"
       },

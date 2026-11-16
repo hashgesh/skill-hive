@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2026-11-16
+
+### Refactor
+
+- **marketplace:** Move each plugin into its own folder (**BREAKING**)
+
+### Documentation
+
+- **agents:** Document release title format
+
 ## [1.0.0] - 2026-11-16
 
 ### Documentation

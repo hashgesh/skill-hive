@@ -3,7 +3,7 @@
 > **You are an AI coding agent (Claude Code, OpenCode, or similar) and the user asked you to install skill-hive.**
 > Follow these steps in order. Run the commands yourself, but **ask the user before every step that changes their machine or config**, and show what you will change. Never use `sudo` without asking. At the end, report exactly what was installed and where.
 
-skill-hive is a set of agent skills (`skills/<name>/SKILL.md`) that work in both **Claude Code** and **OpenCode**:
+skill-hive is a set of agent skills (`plugins/<plugin>/skills/<name>/SKILL.md`) that work in both **Claude Code** and **OpenCode**:
 
 | Plugin (Claude Code) | Skills |
 |----------------------|--------|
@@ -28,7 +28,7 @@ git --version
 Tell the user which of Claude Code and OpenCode are installed, then ask:
 
 1. **Install for which tool(s)?** Claude Code, OpenCode, or both (offer only the installed ones).
-2. **Which plugins?** Any of `git-workflow`, `code-quality`, `code-insight` (default: all three). For OpenCode all skills come together; this choice only matters for Claude Code.
+2. **Which plugins?** Any of `git-workflow`, `code-quality`, `code-insight` (default: all three). The same choice applies to Claude Code and OpenCode.
 
 If neither tool is installed, stop and tell the user to install one first.
 
@@ -81,22 +81,26 @@ OpenCode loads skills from directories listed in its config, so it needs a local
 
 2. **Find the global config file**: `~/.config/opencode/opencode.jsonc`, or `~/.config/opencode/opencode.json` if that one exists instead. Create `opencode.jsonc` if neither exists. Read the file first.
 
-3. **Add the skills directory** — the `skills` folder inside the clone, as an absolute path or starting with `~/`. Edit the file in place, keeping every existing setting and comment (it may be JSONC). Show the user the change before saving. Handle the existing shape:
+3. **Add the skills directories** — `plugins/<plugin>/skills` inside the clone for each chosen plugin, as absolute paths or starting with `~/`. Edit the file in place, keeping every existing setting and comment (it may be JSONC). Show the user the change before saving. Handle the existing shape:
 
-   - No `skills` key → add `"skills": ["~/.local/share/skill-hive/skills"]`
-   - `"skills": [ ... ]` (array) → append the path if it's not already there
-   - `"skills": { "paths": [ ... ] }` (object) → append to `paths` if it's not already there
+   - No `skills` key → add `"skills": [ ... ]` with the chosen paths
+   - `"skills": [ ... ]` (array) → append each path that's not already there
+   - `"skills": { "paths": [ ... ] }` (object) → append each path to `paths` that's not already there
 
    Minimal resulting file when it was empty:
 
    ```jsonc
    {
      "$schema": "https://opencode.ai/config.json",
-     "skills": ["~/.local/share/skill-hive/skills"]
+     "skills": [
+       "~/.local/share/skill-hive/plugins/git-workflow/skills",
+       "~/.local/share/skill-hive/plugins/code-quality/skills",
+       "~/.local/share/skill-hive/plugins/code-insight/skills"
+     ]
    }
    ```
 
-   Older setups may point at `<clone>/opencode`; that path no longer exists, so replace it with `<clone>/skills`.
+   Older setups may point at `<clone>/skills` (before v2.0.0) or `<clone>/opencode`; those paths no longer exist, so replace them with the `plugins/<plugin>/skills` paths above.
 
 4. **Verify.** OpenCode silently ignores a path that doesn't exist, so always check:
 
@@ -104,7 +108,7 @@ OpenCode loads skills from directories listed in its config, so it needs a local
    opencode debug skill
    ```
 
-   The output is JSON; it must contain entries whose `location` is under `<clone>/skills/` for all 13 skills: `branch`, `changelog`, `code-history`, `codebase-tour`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`, `tech-debt`. If they are missing, re-check the path in the config.
+   The output is JSON; it must contain entries whose `location` is under `<clone>/plugins/` for every chosen plugin's skills (all 13 when all three are chosen): `branch`, `changelog`, `code-history`, `codebase-tour`, `conventional-commit`, `cpp-linter`, `js-linter`, `pull-request`, `python-linter`, `refactor`, `release`, `review`, `tech-debt`. If they are missing, re-check the path in the config.
 
 5. Tell the user to restart OpenCode; config is loaded only at startup.
 

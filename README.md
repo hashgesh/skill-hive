@@ -43,23 +43,23 @@ Once installed, just ask — the agent picks the skill from its description:
 
 ## Skills
 
-The same `skills/<name>/SKILL.md` files are used by both tools. In Claude Code they are grouped into three plugins.
+The skills are grouped into three plugins, one folder each: `plugins/<plugin>/skills/<name>/SKILL.md`. The same files are used by both tools.
 
 | Skill | Plugin | Description | Requires |
 |-------|--------|-------------|----------|
-| [branch](skills/branch/) | `git-workflow` | Create a well-named branch from the right base | `git`, `gh` (optional) |
-| [changelog](skills/changelog/) | `git-workflow` | Generate changelog with git-cliff | `git-cliff` |
-| [conventional-commit](skills/conventional-commit/) | `git-workflow` | Conventional commits with gitmoji | `git` |
-| [pull-request](skills/pull-request/) | `git-workflow` | Auto-generate PR summary | `gh` or `glab` (optional) |
-| [release](skills/release/) | `git-workflow` | Create release with changelog and tag | `git-cliff`, `gh` (optional) |
-| [review](skills/review/) | `git-workflow` | Auto-review PRs with analysis | `gh` |
-| [cpp-linter](skills/cpp-linter/) | `code-quality` | C++ code style checker | `clang-format`, `clang-tidy`, `cppcheck` |
-| [js-linter](skills/js-linter/) | `code-quality` | JS/TS lint, format and type check | `eslint`, `prettier`, `tsc` |
-| [python-linter](skills/python-linter/) | `code-quality` | Python lint, format and type check | `ruff`, `mypy` (optional) |
-| [refactor](skills/refactor/) | `code-quality` | Code analysis and refactoring patterns | `ast-grep` (optional) |
-| [tech-debt](skills/tech-debt/) | `code-quality` | Technical debt register: markers, hotspots, duplication, outdated deps | `git`, `rg`, `lizard`/`jscpd` (optional) |
-| [code-history](skills/code-history/) | `code-insight` | Explain why code looks the way it does, from git history, PRs and issues | `git`, `gh` (optional) |
-| [codebase-tour](skills/codebase-tour/) | `code-insight` | Guided tour of a repo: stack, commands, map, entry points, reading list | `git`, `rg`, `scc`/`tokei` (optional) |
+| [branch](plugins/git-workflow/skills/branch/) | `git-workflow` | Create a well-named branch from the right base | `git`, `gh` (optional) |
+| [changelog](plugins/git-workflow/skills/changelog/) | `git-workflow` | Generate changelog with git-cliff | `git-cliff` |
+| [conventional-commit](plugins/git-workflow/skills/conventional-commit/) | `git-workflow` | Conventional commits with gitmoji | `git` |
+| [pull-request](plugins/git-workflow/skills/pull-request/) | `git-workflow` | Auto-generate PR summary | `gh` or `glab` (optional) |
+| [release](plugins/git-workflow/skills/release/) | `git-workflow` | Create release with changelog and tag | `git-cliff`, `gh` (optional) |
+| [review](plugins/git-workflow/skills/review/) | `git-workflow` | Auto-review PRs with analysis | `gh` |
+| [cpp-linter](plugins/code-quality/skills/cpp-linter/) | `code-quality` | C++ code style checker | `clang-format`, `clang-tidy`, `cppcheck` |
+| [js-linter](plugins/code-quality/skills/js-linter/) | `code-quality` | JS/TS lint, format and type check | `eslint`, `prettier`, `tsc` |
+| [python-linter](plugins/code-quality/skills/python-linter/) | `code-quality` | Python lint, format and type check | `ruff`, `mypy` (optional) |
+| [refactor](plugins/code-quality/skills/refactor/) | `code-quality` | Code analysis and refactoring patterns | `ast-grep` (optional) |
+| [tech-debt](plugins/code-quality/skills/tech-debt/) | `code-quality` | Technical debt register: markers, hotspots, duplication, outdated deps | `git`, `rg`, `lizard`/`jscpd` (optional) |
+| [code-history](plugins/code-insight/skills/code-history/) | `code-insight` | Explain why code looks the way it does, from git history, PRs and issues | `git`, `gh` (optional) |
+| [codebase-tour](plugins/code-insight/skills/codebase-tour/) | `code-insight` | Guided tour of a repo: stack, commands, map, entry points, reading list | `git`, `rg`, `scc`/`tokei` (optional) |
 
 The CLIs are not bundled; install the ones you need (each skill lists install commands).
 
@@ -84,11 +84,15 @@ Skills are namespaced by plugin, e.g. `/git-workflow:changelog`, `/code-quality:
 
 ## OpenCode (manual)
 
-Clone the repo and add its `skills/` directory to the `skills` array in `~/.config/opencode/opencode.jsonc`:
+Clone the repo and add the `skills/` directory of each plugin you want to the `skills` array in `~/.config/opencode/opencode.jsonc`:
 
 ```jsonc
 {
-  "skills": ["/path/to/skill-hive/skills"]
+  "skills": [
+    "/path/to/skill-hive/plugins/git-workflow/skills",
+    "/path/to/skill-hive/plugins/code-quality/skills",
+    "/path/to/skill-hive/plugins/code-insight/skills"
+  ]
 }
 ```
 

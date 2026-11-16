@@ -1,6 +1,6 @@
 ---
 name: changelog
-description: Generate or update CHANGELOG.md from git history using git-cliff. Parses conventional commits (including gitmoji-prefixed ones like "✨ feat(scope): ..."), groups them by type, previews unreleased changes, and bumps versions. Use for changelog, release notes, "what changed since last tag", git cliff, cliff.toml.
+description: 'Generate or update CHANGELOG.md from git history using git-cliff. Parses conventional commits (including gitmoji-prefixed ones like "✨ feat(scope): ..."), groups them by type, previews unreleased changes, and bumps versions. Use for changelog, release notes, "what changed since last tag", git cliff, cliff.toml.'
 ---
 
 # Changelog Skill

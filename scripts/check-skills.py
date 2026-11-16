@@ -54,7 +54,10 @@ def parse_frontmatter(path):
         if not sep or line[0].isspace():
             error(f"{path}: unsupported frontmatter line {line!r} (use single-line 'key: value')")
             continue
-        fields[key.strip()] = value.strip().strip('"').strip("'")
+        value = value.strip()
+        if value[:1] not in ("'", '"') and (": " in value or " #" in value):
+            error(f"{path}: {key.strip()} has ': ' or ' #', which YAML misreads; wrap the value in quotes")
+        fields[key.strip()] = value.strip('"').strip("'")
     return fields
 
 

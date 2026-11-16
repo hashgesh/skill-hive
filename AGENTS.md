@@ -20,7 +20,7 @@ A collection of agent **skill** definitions (Markdown) shared by **Claude Code**
 - Keep skill bodies tool-neutral: no OpenCode- or Claude-specific tool names. Refer to other skills by bare name ("the changelog skill"); in Claude Code they appear namespaced (`git-workflow:changelog`).
 - When adding a skill: add it to a plugin's `skills` list in `.claude-plugin/marketplace.json` (or a new plugin entry), to the README table, **and** to INSTALL.md (plugin table, expected output, skill list, CLI tools).
 - Before pushing, run what CI runs: `python3 scripts/check-skills.py`, `claude plugin validate --strict .`, and `scripts/test-changelog.sh` if you touched the changelog skill (needs `git-cliff`).
-- Plugin entries have no `version`, so Claude Code users get every pushed commit on `/plugin marketplace update`. Add a `version` only if releases should be pinned.
+- Plugin entries are pinned with `version` (currently `1.0.0`, same for all three plugins), so Claude Code users only get changes when it is bumped. When cutting a release (the release skill), bump `version` on every plugin in `.claude-plugin/marketplace.json` to the new semver in the same commit as the changelog, then tag `vX.Y.Z`.
 - OpenCode is registered through the `skills` array in `~/.config/opencode/opencode.jsonc` pointing at this repo's `skills/` directory; it loads `<root>/<name>/SKILL.md` directly, so the live skill set follows the checked-out branch.
 
 ## Git workflow
